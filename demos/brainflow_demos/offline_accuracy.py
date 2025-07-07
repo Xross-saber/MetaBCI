@@ -2,7 +2,7 @@
 """
 SSVEP offline analysis.
 """
-from metabci.brainda.algorithms.decomposition import FBTDCA
+from metabci.brainda.algorithms.decomposition import FBDSP
 from sklearn.base import BaseEstimator, ClassifierMixin
 from metabci.brainda.paradigms import SSVEP
 from metabci.brainda.algorithms.utils.model_selection import (
@@ -15,19 +15,21 @@ from metabci.brainda.algorithms.feature_analysis.freq_analysis \
     import FrequencyAnalysis
 from metabci.brainda.algorithms.feature_analysis.time_analysis \
     import TimeAnalysis
-from datasets import MetaBCIData
 from mne.filter import resample
 import matplotlib.pyplot as plt
 import numpy as np
 import warnings
+from metabci.brainda.datasets.tsinghua import Wang2016
+from sympy.plotting.intervalmath import interval
+from sklearn.model_selection import train_test_split
 warnings.filterwarnings('ignore')
-
+from scipy import signal
 
 # 对raw操作,例如滤波
 
 def raw_hook(raw, caches):
     # do something with raw object
-    raw.filter(7, 55, l_trans_bandwidth=2, h_trans_bandwidth=5,
+    raw.filter(5, 55, l_trans_bandwidth=2, h_trans_bandwidth=5,
                phase='zero-double')
     caches['raw_stage'] = caches.get('raw_stage', -1) + 1
     return raw, caches
@@ -59,6 +61,7 @@ class MaxClassifier(BaseEstimator, ClassifierMixin):
 
 
 def train_model(X, y, srate=1000):
+    print("train_model开始运行")
     y = np.reshape(y, (-1))
     # 降采样
     X = resample(X, up=256, down=srate)
@@ -73,21 +76,44 @@ def train_model(X, y, srate=1000):
     ws = [
         [4, 90], [12, 90], [20, 90], [28, 90], [36, 90]
     ]
-    filterweights = np.arange(1, 6)**(-1.25) + 0.25
+    filterweights = np.arange(1, 6) ** (-1.25) + 0.25
     filterbank = generate_filterbank(wp, ws, 256)
 
-    freqs = np.arange(8, 16, 0.4)
+    freqs = np.arange(8, 16, 0.2)
     Yf = generate_cca_references(freqs, srate=256, T=0.5, n_harmonics=5)
-    model = FBTDCA(filterbank, padding_len=3, n_components=4,
-                   filterweights=np.array(filterweights))
+
+    # 初始化 FBDSP 模型
+    model = FBDSP(
+        filterbank,
+        n_components=1,
+        transform_method="corr",
+        filterweights=np.array(filterweights),
+        n_jobs=-1
+    )
+
+    # 优化滤波器权重
+    print("开始优化滤波器权重")
+    new_weights = model.optimize_weights(X, y, n_splits=5)
+    print(f"优化后的滤波器权重: {new_weights}")
+
+    # 使用优化后的权重重新初始化模型
+    model = FBDSP(
+        filterbank,
+        n_components=1,
+        transform_method="corr",
+        filterweights=new_weights,
+        n_jobs=-1
+    )
+
+    # 训练模型
     model = model.fit(X, y, Yf=Yf)
-
+    print("train_model结束运行")
     return model
-
 # 预测标签
 
 
-def model_predict(X, srate=1000, model=None):
+def model_predict(X, srate=250, model=None):
+    print("model_predict开始运行")
     X = np.reshape(X, (-1, X.shape[-2], X.shape[-1]))
     # 降采样
     X = resample(X, up=256, down=srate)
@@ -96,12 +122,16 @@ def model_predict(X, srate=1000, model=None):
     X = X / np.std(X, axis=(-1, -2), keepdims=True)
     # FBDSP.predict()预测标签
     p_labels = model.predict(X)
+    print("model_predict结束运行")
     return p_labels
 
 # 计算离线正确率
 
 
-def offline_validation(X, y, srate=1000):
+def offline_validation(X, y, srate=250):
+    print("offline_validation开始运行")
+    unique_classes = np.unique(y)
+
     y = np.reshape(y, (-1))
 
     kfold_accs = []
@@ -112,7 +142,8 @@ def offline_validation(X, y, srate=1000):
 
         model = train_model(X_train, y_train, srate=srate)          # 训练模型
         p_labels = model_predict(X_test, srate=srate, model=model)  # 预测标签
-        kfold_accs.append(np.mean(p_labels == y_test))                # 记录正确率
+        kfold_accs.append(np.mean(p_labels == y_test))    # 记录正确率
+        print("offline_validation结束运行")
     return np.mean(kfold_accs)
 
 # 时域分析
@@ -122,11 +153,11 @@ def time_feature(X, meta, dataset, event, channel, latency=0):
     # brainda.algorithms.feature_analysis.time_analysis.TimeAnalysis
     Feature_R = TimeAnalysis(X, meta, dataset, event=event, latency=latency,
                              channel=channel)
-
     plt.figure(1)
     # 计算模板信号调用TimeAnalysis.stacking_average()
     data_mean = Feature_R.stacking_average(np.squeeze(
-        Feature_R.data[:, Feature_R.chan_ID, :]), _axis=0)
+        Feature_R.data[:, Feature_R.chan_ID, :]), _axis=[0])
+    print(data_mean.shape)
     ax = plt.subplot(2, 1, 1)
     sample_num = int(Feature_R.fs*Feature_R.data_length)
     # 画出模板信号及其振幅调用TimeAnalysis.plot_single_trial()
@@ -155,48 +186,72 @@ def time_feature(X, meta, dataset, event, channel, latency=0):
 # 频域分析
 
 
-def frequency_feature(X, chan_names, event, SNRchannels, plot_ch, srate=1000):
-    # 初始化参数
+def frequency_feature(X, chan_names, event, SNRchannels, plot_ch, srate=250):
     channellist = ['PZ', 'PO5', 'PO3', 'POZ', 'PO4', 'PO6', 'O1', 'OZ', 'O2']
-    chan_nums = []
-    for i in range(len(chan_names)):
-        chan_nums.append(channellist.index(chan_names[i]))
-    X = X[:, chan_nums, :]
-    SNRchannels = chan_names.index(SNRchannels)
 
-    # brainda.algorithms.feature_analysis.freq_analysis.FrequencyAnalysis
+    # 验证通道名称
+    if not all(ch in channellist for ch in chan_names):
+        raise ValueError(f"Invalid channel names: {chan_names}. Must be in {channellist}")
+    if SNRchannels not in chan_names:
+        raise ValueError(f"SNR channel {SNRchannels} not in chan_names: {chan_names}")
+
+    # 选择通道
+    chan_nums = [channellist.index(ch) for ch in chan_names]
+    X = X[:, chan_nums, :]
+    print(f"Input X shape: {X.shape}")
+
+    # 初始化 FrequencyAnalysis
+    dataset = Wang2016()
+    paradigm = SSVEP(
+        channels=dataset.channels,
+        events=dataset.events,
+        intervals=[(0, 2.0)],
+        srate=srate)
+    meta = paradigm.get_data(dataset, subjects=list(range(1, 3)), return_concat=True, verbose=False)[2]
     Feature_R = FrequencyAnalysis(X, meta, event, srate)
 
-    # 计算模板信号,调用FrequencyAnalysis.stacking_average()
-    mean_data = Feature_R.stacking_average(data=[], _axis=0)
+    # 计算平均信号
+    mean_data = Feature_R.stacking_average(data=Feature_R.data, _axis=0)
+    print(f"Mean data shape: {mean_data.shape}")
+    print(f"Mean data contains NaN: {np.any(np.isnan(mean_data))}")
+    if mean_data.size == 0:
+        raise ValueError("Mean data is empty after stacking_average")
 
-    # 计算12Hz刺激下模板信号的功率谱密度
-    # 调用FrequencyAnalysis.power_spectrum_periodogram()
-    f, den = Feature_R.power_spectrum_periodogram(mean_data[plot_ch])
-    plt.plot(f, den)
-    plt.text(12, den[f == 12][0], '{:.2f}'.format(
-        den[f == 12][0]), fontsize=15)
-    plt.text(24, den[f == 24][0], '{:.2f}'.format(
-        den[f == 24][0]), fontsize=15)
-    plt.text(36, den[f == 36][0], '{:.2f}'.format(
-        den[f == 36][0]), fontsize=15)
-    plt.title('OZ FFT')
-    plt.xlim([0, 60])
-    plt.ylim([0, 4])
-    plt.xlabel('fre [Hz]')
+    # 替换 NaN 值
+    mean_data = np.nan_to_num(mean_data, nan=0.0)
+
+    # 选择 SNR 通道
+    SNR_chan_idx = chan_names.index(SNRchannels)
+    print(f"Selected channel: {SNRchannels}, index: {SNR_chan_idx}")
+
+    # 计算 PSD，使用降采样后的采样率 (256 Hz)
+    f, den = signal.periodogram(mean_data[SNR_chan_idx], fs=256, window="boxcar", scaling="spectrum")
+    print(f"PSD frequencies (first 10): {f[:10]}")
+    print(f"PSD values (first 10): {den[:10]}")
+
+    # 绘制 PSD 图
+    plt.figure(figsize=(10, 6))
+    plt.plot(f, den, label=f'Channel {SNRchannels}')
+    for freq in [12, 24, 36]:  # 标注目标频率
+        freq_idx = np.argmin(np.abs(f - freq))
+        plt.text(freq, den[freq_idx], f'{den[freq_idx]:.2f}', fontsize=15, ha='center')
+    plt.title(f'PSD for {SNRchannels}')
+    plt.xlabel('Frequency [Hz]')
     plt.ylabel('PSD [V**2]')
+    plt.xlim([0, 60])
+    plt.ylim([0, max(np.max(den) * 1.2, 1e-6)])  # 确保 Y 轴范围合理
+    plt.grid(True)
+    plt.legend()
     plt.show()
+    print("PSD calculation and plotting completed")
+
+    return SNRchannels, den[freq_idx]  # 返回 SNR 值
 
 
-def time_frequency_feature(X, y, chan_names, srate=1000):
+def time_frequency_feature(X, y, chan_names, srate=250):
     # 初始化参数
-    channellist = ['Fp1', 'Fpz', 'Fp2', 'AF3', 'AF4', 'F7', 'F5', 'F3', 'F1',
-                   'Fz', 'F2', 'F4', 'F6', 'F8', 'FT7', 'FC5', 'FC3', 'FC1',
-                   'FCz', 'FC2', 'FC4', 'FC6', 'FT8', 'T7', 'C5', 'C3', 'C1',
-                   'Cz', 'C2', 'C4', 'C6', 'T8', 'TP7', 'CP5', 'CP3', 'CP1',
-                   'CPz', 'CP2', 'CP4', 'CP6', 'TP8', 'P7', 'P5', 'P3', 'P1',
-                   'Pz', 'P2', 'P4', 'P6', 'P8', 'PO7', 'PO5', 'PO3', 'POz',
-                   'PO4', 'PO6', 'PO8', 'O1', 'Oz', 'O2']
+    print("time_frequency_feature开始")
+    channellist = ['PZ', 'PO5', 'PO3', 'POZ', 'PO4', 'PO6', 'O1', 'OZ', 'O2']
     chan_nums = []
     for i in range(len(chan_names)):
         chan_nums.append(channellist.index(chan_names[i]))
@@ -222,7 +277,7 @@ def time_frequency_feature(X, y, chan_names, srate=1000):
     plt.xlabel('Time [sec]')
     plt.colorbar()
     plt.show()
-
+    print("time_frequency_feature开始")
     # 莫雷小波变换
     mean_Pz_data_8hz = mean_data_8hz[-4, :]
     N = mean_Pz_data_8hz.shape[0]
@@ -249,7 +304,7 @@ def time_frequency_feature(X, y, chan_names, srate=1000):
         ''.join(
             ('Scaleogram (ω = ', str(omega), ' , ', 'σ = ', str(sigma), ')')
             ))
-    plt.text(t_lim[1] + 0.04, f_lim[1] / 2, 
+    plt.text(t_lim[1] + 0.04, f_lim[1] / 2,
              'Power (\muV^2/Hz)', rotation=90,
              verticalalignment='center',
              horizontalalignment='center')
@@ -281,15 +336,11 @@ if __name__ == '__main__':
     srate = 1000
     # 截取数据的时间段
     stim_interval = [(0.14, 1.14)]
-    subjects = list(range(1, 2))
+    subjects = list(range(1, 3))
     paradigm = 'ssvep'
 
     pick_chs = ['PZ', 'PO5', 'PO3', 'POZ', 'PO4', 'PO6', 'O1', 'OZ', 'O2']
-    # //.datasets.py中按照metabci.brainda.datasets数据结构自定义数据类MetaBCIData
-    # declare the dataset
-    dataset = MetaBCIData(
-        subjects=subjects, srate=srate,
-        paradigm='ssvep', pattern='ssvep')
+    dataset = Wang2016()
     paradigm = SSVEP(
         channels=dataset.channels,
         events=dataset.events,
@@ -300,7 +351,7 @@ if __name__ == '__main__':
         dataset,
         subjects=subjects,
         return_concat=True,
-        n_jobs=4,
+        n_jobs=-1,
         verbose=False)
     y = label_encoder(y, np.unique(y))
     print("Loding data successfully")
@@ -308,10 +359,3 @@ if __name__ == '__main__':
     # 计算离线正确率
     acc = offline_validation(X, y, srate=srate)     # 计算离线准确率
     print("Current Model accuracy:{:.2f}".format(acc))
-
-    # 时域分析
-    time_feature(X[..., :int(srate)], meta, dataset, '11', ['OZ'])  # 1s
-    # 频域分析
-    frequency_feature(X[..., :int(srate)], pick_chs, '11', 'OZ', -2, srate)
-    # 时频域分析
-    # time_frequency_feature(X[...,:srate], y,pick_chs)
