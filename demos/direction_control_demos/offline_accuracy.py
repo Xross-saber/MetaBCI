@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-SSVEP offline analysis.
+SSVEP offline analysis with logging.
 """
+import numpy as np
 from metabci.brainda.algorithms.decomposition import FBDSP
 from sklearn.base import BaseEstimator, ClassifierMixin
 from metabci.brainda.paradigms import SSVEP
@@ -9,41 +10,31 @@ from metabci.brainda.algorithms.utils.model_selection import (
     EnhancedLeaveOneGroupOut)
 from metabci.brainda.algorithms.decomposition.base import (
     generate_filterbank, generate_cca_references)
-from metabci.brainda.algorithms.feature_analysis.time_freq_analysis \
-    import TimeFrequencyAnalysis
-from metabci.brainda.algorithms.feature_analysis.freq_analysis \
-    import FrequencyAnalysis
-from metabci.brainda.algorithms.feature_analysis.time_analysis \
-    import TimeAnalysis
 from mne.filter import resample
-import matplotlib.pyplot as plt
-import numpy as np
 import warnings
 from metabci.brainda.datasets.tsinghua import Wang2016
-from sympy.plotting.intervalmath import interval
-from sklearn.model_selection import train_test_split
-warnings.filterwarnings('ignore')
+from metabci.brainflow.logger import get_logger
 from scipy import signal
 
-# 对raw操作,例如滤波
+# 配置日志
+logger = get_logger("offline_accuracy")
 
+warnings.filterwarnings('ignore')
+
+# 对raw操作,例如滤波
 def raw_hook(raw, caches):
-    # do something with raw object
     raw.filter(5, 55, l_trans_bandwidth=2, h_trans_bandwidth=5,
                phase='zero-double')
     caches['raw_stage'] = caches.get('raw_stage', -1) + 1
     return raw, caches
 
 # 按照0,1,2,...重新排列标签
-
-
 def label_encoder(y, labels):
     new_y = y.copy()
     for i, label in enumerate(labels):
         ix = (y == label)
         new_y[ix] = i
     return new_y
-
 
 class MaxClassifier(BaseEstimator, ClassifierMixin):
     def __init__(self):
@@ -58,288 +49,72 @@ class MaxClassifier(BaseEstimator, ClassifierMixin):
         return y
 
 # 训练模型
-
-
-def train_model(X, y, srate=1000):
-    print("train_model开始运行")
+def train_model(X, y, srate=250):
+    logger.info("train_model开始运行")
     y = np.reshape(y, (-1))
-    # 降采样
-    X = resample(X, up=256, down=srate)
-    # 零均值单位方差 归一化
+    logger.info(f"输入 X 形状: {X.shape}")
     X = X - np.mean(X, axis=-1, keepdims=True)
     X = X / np.std(X, axis=(-1, -2), keepdims=True)
 
-    # 滤波器组设置
-    wp = [
-        [6, 88], [14, 88], [22, 88], [30, 88], [38, 88]
-    ]
-    ws = [
-        [4, 90], [12, 90], [20, 90], [28, 90], [36, 90]
-    ]
+    # 滤波器组设置，匹配Wang2016频率范围
+    wp = [[6, 88], [14, 88], [22, 88], [30, 88], [38, 88]]
+    ws = [[4, 90], [12, 90], [20, 90], [28, 90], [36, 90]]
     filterweights = np.arange(1, 6) ** (-1.25) + 0.25
-    filterbank = generate_filterbank(wp, ws, 256)
+    filterbank = generate_filterbank(wp, ws, 250)
 
-    freqs = np.arange(8, 16, 0.2)
-    Yf = generate_cca_references(freqs, srate=256, T=0.5, n_harmonics=5)
+    # 使用Wang2016的40个频率
+    freqs = Wang2016._FREQS
+    Yf = generate_cca_references(freqs, srate=250, T=0.5, n_harmonics=5)
 
-    # 初始化 FBDSP 模型
     model = FBDSP(
         filterbank,
-        n_components=1,
+        n_components=5,
         transform_method="corr",
-        filterweights=np.array(filterweights),
-        n_jobs=-1
-    )
-
-    # 优化滤波器权重
-    print("开始优化滤波器权重")
-    new_weights = model.optimize_weights(X, y, n_splits=5)
-    print(f"优化后的滤波器权重: {new_weights}")
-
-    # 使用优化后的权重重新初始化模型
-    model = FBDSP(
-        filterbank,
-        n_components=1,
-        transform_method="corr",
-        filterweights=new_weights,
+        filterweights=None,
         n_jobs=-1
     )
 
     # 训练模型
     model = model.fit(X, y, Yf=Yf)
-    print("train_model结束运行")
+    logger.info("train_model结束运行")
     return model
+
 # 预测标签
-
-
 def model_predict(X, srate=250, model=None):
-    print("model_predict开始运行")
+    logger.info("model_predict开始运行")
     X = np.reshape(X, (-1, X.shape[-2], X.shape[-1]))
-    # 降采样
-    X = resample(X, up=256, down=srate)
-    # 零均值单位方差 归一化
     X = X - np.mean(X, axis=-1, keepdims=True)
     X = X / np.std(X, axis=(-1, -2), keepdims=True)
-    # FBDSP.predict()预测标签
+    logger.info(f"X 形状传入 predict: {X.shape}")
     p_labels = model.predict(X)
-    print("model_predict结束运行")
+    logger.info("model_predict结束运行")
     return p_labels
 
 # 计算离线正确率
-
-
 def offline_validation(X, y, srate=250):
-    print("offline_validation开始运行")
+    logger.info("offline_validation开始运行")
     unique_classes = np.unique(y)
-
     y = np.reshape(y, (-1))
 
     kfold_accs = []
-    spliter = EnhancedLeaveOneGroupOut(return_validate=False)       # 留一法交叉验证
+    spliter = EnhancedLeaveOneGroupOut(return_validate=False)
     for train_ind, test_ind in spliter.split(X, y=y):
         X_train, y_train = np.copy(X[train_ind]), np.copy(y[train_ind])
         X_test, y_test = np.copy(X[test_ind]), np.copy(y[test_ind])
 
-        model = train_model(X_train, y_train, srate=srate)          # 训练模型
-        p_labels = model_predict(X_test, srate=srate, model=model)  # 预测标签
-        kfold_accs.append(np.mean(p_labels == y_test))    # 记录正确率
-        print("offline_validation结束运行")
+        model = train_model(X_train, y_train, srate=srate)
+        p_labels = model_predict(X_test, srate=srate, model=model)
+        kfold_accs.append(np.mean(p_labels == y_test))
+        logger.info("offline_validation结束运行")
     return np.mean(kfold_accs)
-
-# 时域分析
-
-
-def time_feature(X, meta, dataset, event, channel, latency=0):
-    # brainda.algorithms.feature_analysis.time_analysis.TimeAnalysis
-    Feature_R = TimeAnalysis(X, meta, dataset, event=event, latency=latency,
-                             channel=channel)
-    plt.figure(1)
-    # 计算模板信号调用TimeAnalysis.stacking_average()
-    data_mean = Feature_R.stacking_average(np.squeeze(
-        Feature_R.data[:, Feature_R.chan_ID, :]), _axis=[0])
-    print(data_mean.shape)
-    ax = plt.subplot(2, 1, 1)
-    sample_num = int(Feature_R.fs*Feature_R.data_length)
-    # 画出模板信号及其振幅调用TimeAnalysis.plot_single_trial()
-    loc, amp, ax = Feature_R.plot_single_trial(data_mean,
-                                               sample_num=sample_num,
-                                               axes=ax,
-                                               amp_mark='peak',
-                                               time_start=0,
-                                               time_end=sample_num-1)
-    plt.title("(a)", x=0.03, y=0.86)
-    # 画出多试次信号调用TimeAnalysis.plot_multi_trials()
-    ax = plt.subplot(2, 1, 2)
-    ax = Feature_R.plot_multi_trials(
-        np.squeeze(Feature_R.data[:, Feature_R.chan_ID, :]),
-        sample_num=sample_num, axes=ax)
-    plt.title("(b)", x=0.03, y=0.86)
-
-    # 时域幅值脑地形图
-    fig2 = plt.figure(2)
-    data_map = Feature_R.stacking_average(Feature_R.data, _axis=0)
-    # 调用TimeAnalysis.plot_topomap()
-    Feature_R.plot_topomap(data_map, loc, fig=fig2,
-                           channels=Feature_R.All_channel, axes=ax)
-    plt.show()
-
-# 频域分析
-
-
-def frequency_feature(X, chan_names, event, SNRchannels, plot_ch, srate=250):
-    channellist = ['PZ', 'PO5', 'PO3', 'POZ', 'PO4', 'PO6', 'O1', 'OZ', 'O2']
-
-    # 验证通道名称
-    if not all(ch in channellist for ch in chan_names):
-        raise ValueError(f"Invalid channel names: {chan_names}. Must be in {channellist}")
-    if SNRchannels not in chan_names:
-        raise ValueError(f"SNR channel {SNRchannels} not in chan_names: {chan_names}")
-
-    # 选择通道
-    chan_nums = [channellist.index(ch) for ch in chan_names]
-    X = X[:, chan_nums, :]
-    print(f"Input X shape: {X.shape}")
-
-    # 初始化 FrequencyAnalysis
-    dataset = Wang2016()
-    paradigm = SSVEP(
-        channels=dataset.channels,
-        events=dataset.events,
-        intervals=[(0, 2.0)],
-        srate=srate)
-    meta = paradigm.get_data(dataset, subjects=list(range(1, 3)), return_concat=True, verbose=False)[2]
-    Feature_R = FrequencyAnalysis(X, meta, event, srate)
-
-    # 计算平均信号
-    mean_data = Feature_R.stacking_average(data=Feature_R.data, _axis=0)
-    print(f"Mean data shape: {mean_data.shape}")
-    print(f"Mean data contains NaN: {np.any(np.isnan(mean_data))}")
-    if mean_data.size == 0:
-        raise ValueError("Mean data is empty after stacking_average")
-
-    # 替换 NaN 值
-    mean_data = np.nan_to_num(mean_data, nan=0.0)
-
-    # 选择 SNR 通道
-    SNR_chan_idx = chan_names.index(SNRchannels)
-    print(f"Selected channel: {SNRchannels}, index: {SNR_chan_idx}")
-
-    # 计算 PSD，使用降采样后的采样率 (256 Hz)
-    f, den = signal.periodogram(mean_data[SNR_chan_idx], fs=256, window="boxcar", scaling="spectrum")
-    print(f"PSD frequencies (first 10): {f[:10]}")
-    print(f"PSD values (first 10): {den[:10]}")
-
-    # 绘制 PSD 图
-    plt.figure(figsize=(10, 6))
-    plt.plot(f, den, label=f'Channel {SNRchannels}')
-    for freq in [12, 24, 36]:  # 标注目标频率
-        freq_idx = np.argmin(np.abs(f - freq))
-        plt.text(freq, den[freq_idx], f'{den[freq_idx]:.2f}', fontsize=15, ha='center')
-    plt.title(f'PSD for {SNRchannels}')
-    plt.xlabel('Frequency [Hz]')
-    plt.ylabel('PSD [V**2]')
-    plt.xlim([0, 60])
-    plt.ylim([0, max(np.max(den) * 1.2, 1e-6)])  # 确保 Y 轴范围合理
-    plt.grid(True)
-    plt.legend()
-    plt.show()
-    print("PSD calculation and plotting completed")
-
-    return SNRchannels, den[freq_idx]  # 返回 SNR 值
-
-
-def time_frequency_feature(X, y, chan_names, srate=250):
-    # 初始化参数
-    print("time_frequency_feature开始")
-    channellist = ['PZ', 'PO5', 'PO3', 'POZ', 'PO4', 'PO6', 'O1', 'OZ', 'O2']
-    chan_nums = []
-    for i in range(len(chan_names)):
-        chan_nums.append(channellist.index(chan_names[i]))
-    X = X[:, chan_nums, :]
-    index_8hz = np.where(y == 0)
-    data_8hz = np.squeeze(X[index_8hz, :, :])
-    mean_data_8hz = np.mean(data_8hz, axis=0)
-    fs = srate
-
-    # brainda.algorithms.feature_analysis.time_freq_analysis.TimeFrequencyAnalysis
-    Feature_R = TimeFrequencyAnalysis(fs)
-
-    # 短时傅里叶变换
-    nfft = mean_data_8hz.shape[1]
-    # 调用TimeFrequencyAnalysis.fun_stft()
-    f, t, Zxx = Feature_R.fun_stft(
-        mean_data_8hz, nperseg=256, axis=1, nfft=nfft)
-    Zxx_Pz = Zxx[-4, :, :]
-    plt.pcolormesh(t, f, np.abs(Zxx_Pz))
-    plt.ylim(0, 25)
-    plt.title('STFT Magnitude')
-    plt.ylabel('Frequency [Hz]')
-    plt.xlabel('Time [sec]')
-    plt.colorbar()
-    plt.show()
-    print("time_frequency_feature开始")
-    # 莫雷小波变换
-    mean_Pz_data_8hz = mean_data_8hz[-4, :]
-    N = mean_Pz_data_8hz.shape[0]
-    t_index = np.linspace(0, N / fs, num=N, endpoint=False)
-    omega = 2
-    sigma = 1
-    data_test = np.reshape(mean_Pz_data_8hz, newshape=(
-        1, mean_Pz_data_8hz.shape[0]))
-    # 调用TimeFrequencyAnalysis.func_morlet_wavelet()
-    P, S = Feature_R.func_morlet_wavelet(data_test, f, omega, sigma)
-    f_lim = np.array([min(f[np.where(f > 0)]), 30])
-    f_idx = np.array(np.where((f <= f_lim[1]) & (f >= f_lim[0])))[0]
-    t_lim = np.array([0, 1])
-    t_idx = np.array(
-        np.where((t_index <= t_lim[1]) & (t_index >= t_lim[0])))[0]
-    PP = P[0, f_idx, :]
-    plt.pcolor(t_index[t_idx], f[f_idx], PP[:, t_idx])
-    plt.xlabel('Time(s)')
-    plt.ylabel('Frequency(Hz)')
-    plt.xlim(t_lim)
-    plt.ylim(f_lim)
-    plt.plot([0, 0], [0, fs / 2], 'w--')
-    plt.title(
-        ''.join(
-            ('Scaleogram (ω = ', str(omega), ' , ', 'σ = ', str(sigma), ')')
-            ))
-    plt.text(t_lim[1] + 0.04, f_lim[1] / 2,
-             'Power (\muV^2/Hz)', rotation=90,
-             verticalalignment='center',
-             horizontalalignment='center')
-    plt.colorbar()
-    plt.show()
-
-    # 希尔伯特变换
-    charray = np.mean(data_8hz, axis=1)
-    tarray = charray[0, :]
-    N1 = tarray.shape[0]
-    # 调用TimeFrequencyAnalysis.fun_hilbert()
-    analytic_signal, realEnv, imagEnv, angle, envModu = Feature_R.fun_hilbert(
-        tarray)
-
-    time = np.linspace(0, N1 / fs, num=N1, endpoint=False)
-    plt.plot(time, realEnv, "k", marker='o',
-             markerfacecolor='white', label=u"real part")
-    plt.plot(time, imagEnv, "b", label=u"image part")
-    plt.plot(time, angle, "c", linestyle='-', label=u"angle part")
-    plt.plot(time, analytic_signal, "grey", label=u"signal")
-    plt.ylabel('Angle or amplitude')
-    plt.legend()
-    plt.show()
-
 
 if __name__ == '__main__':
     # 初始化参数
-    # 放大器的采样率
-    srate = 1000
-    # 截取数据的时间段
-    stim_interval = [(0.14, 1.14)]
-    subjects = list(range(1, 3))
+    srate = 250
+    stim_interval = [(0.5, 5.5)]
+    subjects = list(range(1, 5))
     paradigm = 'ssvep'
 
-    pick_chs = ['PZ', 'PO5', 'PO3', 'POZ', 'PO4', 'PO6', 'O1', 'OZ', 'O2']
     dataset = Wang2016()
     paradigm = SSVEP(
         channels=dataset.channels,
@@ -354,15 +129,9 @@ if __name__ == '__main__':
         n_jobs=-1,
         verbose=False)
     y = label_encoder(y, np.unique(y))
-    print("Loding data successfully")
+    logger.info(f"X 形状: {X.shape}, y 形状: {y.shape}")
 
     # 计算离线正确率
-    #acc = offline_validation(X, y, srate=srate)     # 计算离线准确率
-    #print("Current Model accuracy:{:.2f}".format(acc))
-    #print(X.shape)
-    # 时域分析
-    #time_feature(X[:int(srate)], meta, dataset, '8', ['OZ'])  # 1s
-    # 频域分析
-    frequency_feature(X[..., :int(srate)], pick_chs, '2', 'PO5', 20, 1000)
-    # 时频域分析
-    #time_frequency_feature(X[...,:srate], y,pick_chs)
+    acc = offline_validation(X, y, srate=srate)
+    logger.info("Current Model accuracy: {:.2f}".format(acc))
+    print("Current Model accuracy:{:.2f}".format(acc))

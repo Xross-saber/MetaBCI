@@ -2,7 +2,7 @@
 # DSP: Discriminal Spatial Patterns
 # Authors: Swolf <swolfforever@gmail.com>
 #          Junyang Wang <2144755928@qq.com>
-# Last update date: 2022-8-11
+# Last update date: 2025-07-07
 # License: MIT License
 
 from typing import Optional, List, Tuple
@@ -12,13 +12,14 @@ from scipy.linalg import eigh
 from numpy import ndarray
 from ..utils.covariance import nearestPD
 from sklearn.base import BaseEstimator, TransformerMixin, ClassifierMixin
+from sklearn.model_selection import KFold
 
 from .base import robust_pattern
 from .cca import FilterBankSSVEP
 
 
 def xiang_dsp_kernel(
-    X: ndarray, y: ndarray
+        X: ndarray, y: ndarray
 ) -> Tuple[ndarray, ndarray, ndarray, ndarray]:
     """
     DSP: Discriminal Spatial Patterns, only for two classes[1]_.
@@ -102,7 +103,7 @@ def xiang_dsp_kernel(
 
 
 def xiang_dsp_feature(
-    W: ndarray, M: ndarray, X: ndarray, n_components: int = 1
+        W: ndarray, M: ndarray, X: ndarray, n_components: int = 1
 ) -> ndarray:
     """
     Return DSP features in paper [1]_.
@@ -153,6 +154,35 @@ def xiang_dsp_feature(
     return features
 
 
+def pearson_features(X, templates):
+    """
+    Calculate pearson correlation coefficient.
+
+    Parameters
+    ----------
+    X : ndarray
+        features of test data after spatial filters, shape(n_trials, n_components, n_samples)
+    templates : ndarray
+        templates of train data, shape(n_classes, n_components, n_samples)
+
+    Returns
+    -------
+    corr : ndarray
+        pearson correlation coefficient, shape(n_trials, n_classes)
+    """
+    X = np.reshape(X, (-1, *X.shape[-2:]))
+    templates = np.reshape(templates, (-1, *templates.shape[-2:]))
+    X = X - np.mean(X, axis=-1, keepdims=True)
+    templates = templates - np.mean(templates, axis=-1, keepdims=True)
+    X = np.reshape(X, (X.shape[0], -1))
+    templates = np.reshape(templates, (templates.shape[0], -1))
+    istd_X = 1 / np.std(X, axis=-1, keepdims=True)
+    istd_templates = 1 / np.std(templates, axis=-1, keepdims=True)
+    corr = (X @ templates.T) / (templates.shape[1] - 1)
+    corr = istd_X * corr * istd_templates.T
+    return corr
+
+
 class DSP(BaseEstimator, TransformerMixin, ClassifierMixin):
     """
     DSP: Discriminal Spatial Patterns
@@ -168,7 +198,7 @@ class DSP(BaseEstimator, TransformerMixin, ClassifierMixin):
     n_components : int
         length of the spatial filter, first k components to use, by default 1
     transform_method : str
-        method of template matching, by default ’corr‘ (pearson correlation coefficient)
+        method of template matching, by default 'corr' (pearson correlation coefficient)
     classes_ : int
         number of the EEG classes
 
@@ -177,12 +207,12 @@ class DSP(BaseEstimator, TransformerMixin, ClassifierMixin):
     n_components : int
         length of the spatial filter, first k components to use, by default 1
     transform_method : str
-        method of template matching, by default ’corr‘ (pearson correlation coefficient)
+        method of template matching, by default 'corr' (pearson correlation coefficient)
     classes_ : int
         number of the EEG classes
     W_ : ndarray, shape(n_channels, n_filters)
         Spatial filters, shape(n_channels, n_filters), in which n_channels = n_filters
-    D_ : ndarray, shape(n_filters， )
+    D_ : ndarray, shape(n_filters, )
         eigenvalues in descending order, shape(n_filters, )
     M_ : ndarray, shape(n_channels, n_samples)
         mean value of all classes and trials, i.e. common mode signals, shape(n_channels, n_samples)
@@ -190,7 +220,6 @@ class DSP(BaseEstimator, TransformerMixin, ClassifierMixin):
         spatial patterns, shape(n_channels, n_filters)
     templates_: ndarray, shape(n_classes, n_filters, n_samples)
         templates of train data, shape(n_classes, n_filters, n_samples)
-
     """
 
     def __init__(self, n_components: int = 1, transform_method: str = "corr"):
@@ -327,6 +356,7 @@ class FBDSP(FilterBankSSVEP, ClassifierMixin):
     Created on: 2021-1-07
 
     Update log:
+    - 2025-07-07: Added weight optimization functionality
 
     Parameters
     ----------
@@ -335,7 +365,7 @@ class FBDSP(FilterBankSSVEP, ClassifierMixin):
     n_components : int
         length of the spatial filters, first k components to use, by default 1
     transform_method : str
-        method of template matching, by default ’corr‘ (pearson correlation coefficient)
+        method of template matching, by default 'corr' (pearson correlation coefficient)
     filterweights : ndarray
         filter weights, optional parameter, by default None
     n_jobs : int
@@ -348,7 +378,7 @@ class FBDSP(FilterBankSSVEP, ClassifierMixin):
     n_components : int
         length of the spatial filters, first k components to use, by default 1
     transform_method : str
-        method of template matching, by default ’corr‘ (pearson correlation coefficient)
+        method of template matching, by default 'corr' (pearson correlation coefficient)
     filterweights : ndarray
         filter weights, optional parameter, by default None
     n_jobs : int
@@ -368,12 +398,12 @@ class FBDSP(FilterBankSSVEP, ClassifierMixin):
     """
 
     def __init__(
-        self,
-        filterbank: List[ndarray],
-        n_components: int = 1,
-        transform_method: str = "corr",
-        filterweights: Optional[ndarray] = None,
-        n_jobs: Optional[int] = None,
+            self,
+            filterbank: List[ndarray],
+            n_components: int = 1,
+            transform_method: str = "corr",
+            filterweights: Optional[ndarray] = None,
+            n_jobs: Optional[int] = None,
     ):
         self.n_components = n_components
         self.transform_method = transform_method
@@ -388,7 +418,7 @@ class FBDSP(FilterBankSSVEP, ClassifierMixin):
 
     def fit(self, X: ndarray, y: ndarray, Yf: Optional[ndarray] = None):  # type: ignore[override]
         """
-        Import the test data to get features.
+        Import the train data to get a model.
 
         Parameters
         ----------
@@ -415,6 +445,78 @@ class FBDSP(FilterBankSSVEP, ClassifierMixin):
         self.classes_ = np.unique(y)
         super().fit(X, y, Yf=Yf)
         return self
+
+    def optimize_weights(self, X: ndarray, y: ndarray, n_splits: int = 5):
+        """
+        Optimize filter weights based on cross-validation performance.
+
+        Parameters
+        ----------
+        X : ndarray
+            train data, shape (n_trials, n_channels, n_samples)
+        y : ndarray
+            labels of train data, shape (n_trials, )
+        n_splits : int
+            number of folds for cross-validation, by default 5
+
+        Returns
+        -------
+        new_weights : ndarray
+            optimized filter weights, shape (n_filters,)
+        """
+        X = np.copy(X)
+        y = np.copy(y)
+        n_filters = len(self.filterbank)
+        accuracies = np.zeros(n_filters)
+
+        # Perform cross-validation for each filter band
+        kf = KFold(n_splits=n_splits, shuffle=True, random_state=42)
+        for i in range(n_filters):
+            accs = []
+            for train_idx, val_idx in kf.split(X):
+                X_train, y_train = X[train_idx], y[train_idx]
+                X_val, y_val = X[val_idx], y[val_idx]
+
+                # Fit model on single filter band
+                single_filterbank = [self.filterbank[i]]
+                model = FBDSP(
+                    filterbank=single_filterbank,
+                    n_components=self.n_components,
+                    transform_method=self.transform_method,
+                    filterweights=None,
+                    n_jobs=self.n_jobs
+                )
+                model.fit(X_train, y_train)
+                pred = model.predict(X_val)
+                acc = np.mean(pred == y_val)
+                accs.append(acc)
+            accuracies[i] = np.mean(accs)
+
+        # Optimize weights based on accuracies
+        new_weights = accuracies / np.sum(accuracies)  # Normalize to sum to 1
+        new_weights = np.clip(new_weights, 0.1, None)  # Ensure minimum weight
+        new_weights /= np.sum(new_weights)  # Re-normalize
+        self.filterweights = new_weights
+        return new_weights
+
+    def transform(self, X: ndarray):
+        """
+        Import the test data to get features.
+
+        Parameters
+        ----------
+        X : ndarray, shape(n_trials, n_channels, n_samples)
+            test data, shape(n_trials, n_channels, n_samples)
+
+        Returns
+        -------
+        features : ndarray, shape(n_trials, n_classes)
+            features of test data, shape(n_trials, n_classes)
+        """
+        features = super().transform(X)
+        if self.transform_method == "corr" and self.filterweights is not None:
+            features = features * self.filterweights[None, :, None]
+        return features
 
     def predict(self, X: ndarray):
         """
@@ -459,7 +561,7 @@ class DCPM(DSP, ClassifierMixin):
     n_components : int
         length of the spatial filters, first k components to use, by default 1
     transform_method : str
-        method of template matching, by default ’corr‘ (pearson correlation coefficient)
+        method of template matching, by default 'corr' (pearson correlation coefficient)
     n_rpts : int
         repetition times in a block
 
@@ -468,7 +570,7 @@ class DCPM(DSP, ClassifierMixin):
     n_components : int
         length of the spatial filters, first k components to use, by default 1
     transform_method : str
-        method of template matching, by default ’corr‘ (pearson correlation coefficient)
+        method of template matching, by default 'corr' (pearson correlation coefficient)
     n_rpts : int
         repetition times in a block
     classes_ : int
@@ -486,40 +588,16 @@ class DCPM(DSP, ClassifierMixin):
 
     References
     ----------
-    .. [1]	Xu MP, Xiao XL, Wang YJ, et al. A brain-computer interface based on miniature-event-related
+    .. [1] Xu MP, Xiao XL, Wang YJ, et al. A brain-computer interface based on miniature-event-related
         potentials induced by very small lateral visual stimuli[J]. IEEE Transactions on Biomedical
         Engineering, 2018:65(5), 1166-1175.
-
-    Tip
-    ----
-    .. code-block:: python
-       :linenos:
-       :emphasize-lines: 2
-       :caption: An example using DCPM
-
-       from brainda.algorithms.decomposition.dsp import DCPM
-       X = np.array(data.get(‘X’))     #data(n_trials, n_channels, n_times)
-       y = data.get(‘Y’)               #labels(n_trials)
-       estimator = DCPM(n_components=2,transform_method=’corr’, n_rpts=1)
-       accs = []
-       # use ‘fit’ to get the model of train data;
-       # use ‘predict’ to get the prediction labels of test data;
-       p_labels=estimator.fit(X[train_ind], y[train_ind]).predict(X[test_ind])
-       accs.append(np.mean(p_labels==y[test_ind]))
-       print(np.mean(accs))
-
-
-    See Also
-    ----------
-    pearson_features: calculate pearson correlation coefficients
     """
 
     def __init__(
-        self, n_components: int = 1, transform_method: str = "corr"
+            self, n_components: int = 1, transform_method: str = "corr"
     ):
         self.n_components = n_components
         self.transform_method = transform_method
-
         super().__init__(n_components=n_components, transform_method=transform_method)
 
     def fit(self, X: ndarray, y: ndarray):  # type: ignore[override]
@@ -531,7 +609,7 @@ class DCPM(DSP, ClassifierMixin):
         X : ndarray, shape(n_trials, n_channels, n_samples)
             train data, shape(n_trials, n_channels, n_samples)
         y : ndarray, shape(n_trials, )
-            labels of train data, shape(n_trials, )
+            labels of train data, shape (n_trials, )
 
         Returns
         -------
@@ -624,34 +702,3 @@ class DCPM(DSP, ClassifierMixin):
             [self.classes_[self.classes_ == self.classes_[labels[i]]] for i in range(labels.shape[0])], axis=0
         )
         return labels
-
-
-# pearson correlation coefficient
-def pearson_features(X, templates):
-    '''
-    Calculate pearson correlation coefficient.
-
-    Parameters
-    ----------
-    X : ndarray
-        features of test data after spatial filters, shape(n_trials, n_components, n_samples)
-    templates : ndarray
-        templates of train data, shape(n_classes, n_components, n_samples)
-
-    Returns
-    -------
-    corr : ndarray
-        pearson correlation coefficient, shape(n_trials, n_classes)
-    '''
-
-    X = np.reshape(X, (-1, *X.shape[-2:]))
-    templates = np.reshape(templates, (-1, *templates.shape[-2:]))
-    X = X - np.mean(X, axis=-1, keepdims=True)
-    templates = templates - np.mean(templates, axis=-1, keepdims=True)
-    X = np.reshape(X, (X.shape[0], -1))
-    templates = np.reshape(templates, (templates.shape[0], -1))
-    istd_X = 1 / np.std(X, axis=-1, keepdims=True)
-    istd_templates = 1 / np.std(templates, axis=-1, keepdims=True)
-    corr = (X @ templates.T) / (templates.shape[1] - 1)
-    corr = istd_X * corr * istd_templates.T
-    return corr

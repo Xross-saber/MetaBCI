@@ -300,56 +300,69 @@ class KeyboardInterface(object):
         self.rows = rows
 
     def config_text(
-        self, unit="pix", symbols=None, symbol_height=0, tex_color=[1, 1, 1]
+            self, unit="pix", symbols=["AB","AB","AB","AB","AB",
+                                       "AB","开启\n跟随","关闭\n跟随","AB","AB",
+                                       "AB","左转\n30度","左行\n50cm","关闭\n避让","AB",
+                                       "AB","前进\n50cm","旋转","后退\n50cm","AB",
+                                       "AB","右转\n30度","右行\n50cm","打开\n避让","AB",
+                                       "抬头","头左转\n30度","头右转\n30度","低头","AB",
+                                       "开启\n发射", "攻击\n一次", "关闭\n发射", "AB", "AB",
+                                       "AB","AB","AB","AB","AB",], symbol_height=0, tex_color=[1, 1, 1], text_offset=[0, 0]
     ):
-        """Sets the characters within the stimulus block.
-
-        update log:
-            2022-06-26 by Jianhang Wu
-
-            2023-12-09 by Simiao Li <lsm_sim@tju.edu.cn> Add code annotation
+        """Sets the text within the stimulus block to support both single characters and strings.
 
         Parameters
         ----------
-            symbols: str
-                Edit character text.
-            symbol_height: int
-                The height of the character in pixels.
-            tex_color: list, shape(red, green, blue)
-                Set the character color, the value is between -1.0 and 1.0.
+            unit: str
+                The unit for text height and position, e.g., 'pix', 'norm', 'height'. Defaults to 'pix'.
+            symbols: list or str
+                List of strings or a single string for stimulus block labels. If None, uses default character set.
+            symbol_height: int or float
+                Height of the text in the specified unit. If 0, defaults to half the stimulus width.
+            tex_color: list
+                RGB color of the text, values between -1.0 and 1.0. Defaults to [1, 1, 1] (white).
+            text_offset: list
+                Offset for text position [x, y] relative to stimulus center, in the specified unit. Defaults to [0, 0].
 
         Raises
         ----------
-            Exception: Insufficient characters
-
+            Exception: If the number of symbols is less than the number of stimuli.
         """
-
-        # check number of symbols
-        if (symbols is not None) and (len(symbols) >= self.n_elements):
-            self.symbols = symbols
+        # Check and set symbols
+        if symbols is not None:
+            if isinstance(symbols, str) and len(symbols) >= self.n_elements:
+                self.symbols = list(symbols)  # Convert string to list of single characters
+            elif isinstance(symbols, (list, tuple)) and len(symbols) >= self.n_elements:
+                self.symbols = symbols  # Use provided list of strings
+            else:
+                raise Exception("Please input a valid symbol list with sufficient length!")
         elif self.n_elements <= 40:
-            self.symbols = "".join([string.ascii_uppercase, "1234567890+-*/"])
+            self.symbols = list("".join([string.ascii_uppercase, "1234567890+-*/"]))
         else:
             raise Exception("Please input correct symbol list!")
 
-        # add text targets onto interface
+        # Set default text height
         if symbol_height == 0:
             symbol_height = self.stim_width / 2
+
+        # Create text stimuli
         self.text_stimuli = []
         for symbol, pos in zip(self.symbols, self.stim_pos):
-            self.text_stimuli.append(
-                visual.TextStim(
-                    win=self.win,
-                    text=symbol,
-                    font="Times New Roman",
-                    pos=pos,
-                    color=tex_color,
-                    units=unit,
-                    height=symbol_height,
-                    bold=True,
-                    name=symbol,
-                )
+            # Adjust position with offset
+            adjusted_pos = [pos[0] + text_offset[0], pos[1] + text_offset[1]]
+            text_stim = visual.TextStim(
+                win=self.win,
+                text=symbol,
+                font="Times New Roman",
+                pos=adjusted_pos,
+                color=tex_color,
+                units=unit,
+                height=symbol_height,
+                bold=True,
+                name=str(symbol),  # Convert to string for name
+                wrapWidth=self.stim_width * 1.5 if unit == "pix" else 0.3  # Adjust wrap for strings
             )
+            self.text_stimuli.append(text_stim)
 
     def config_response(
         self,

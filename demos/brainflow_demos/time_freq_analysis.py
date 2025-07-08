@@ -2,7 +2,6 @@
 """
 SSVEP 离线分析
 """
-import logging
 import matplotlib.pyplot as plt
 import numpy as np
 from metabci.brainda.algorithms.decomposition import FBDSP
@@ -18,21 +17,13 @@ from mne.filter import resample
 from scipy import signal
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.model_selection import train_test_split
+from metabci.brainflow.logger import get_logger  # 导入 logger.py 中的 get_logger
 import warnings
 
-# 配置日志
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler('offline_analysis.log')
-    ]
-)
-logger = logging.getLogger(__name__)
+# 初始化日志记录器
+logger = get_logger('SSVEP_Time_Freq_Analysis')
 
 warnings.filterwarnings('ignore')
-
 
 # 对原始数据应用带通滤波
 def raw_hook(raw, caches):
@@ -42,7 +33,6 @@ def raw_hook(raw, caches):
     caches['raw_stage'] = caches.get('raw_stage', -1) + 1
     return raw, caches
 
-
 # 重新排列标签为 0,1,2,...
 def label_encoder(y, labels):
     new_y = y.copy()
@@ -50,7 +40,6 @@ def label_encoder(y, labels):
         ix = (y == label)
         new_y[ix] = i
     return new_y
-
 
 class MaxClassifier(BaseEstimator, ClassifierMixin):
     def __init__(self):
@@ -63,7 +52,6 @@ class MaxClassifier(BaseEstimator, ClassifierMixin):
         X = X.reshape((-1, X.shape[-1]))
         y = np.argmax(X, axis=-1)
         return y
-
 
 # 训练 FBDSP 模型
 def train_model(X, y, srate=1000):
@@ -105,7 +93,6 @@ def train_model(X, y, srate=1000):
     logger.info("模型训练完成")
     return model
 
-
 # 预测标签
 def model_predict(X, srate=250, model=None):
     logger.info("开始模型预测")
@@ -116,7 +103,6 @@ def model_predict(X, srate=250, model=None):
     p_labels = model.predict(X)
     logger.info("模型预测完成")
     return p_labels
-
 
 # 计算离线准确率
 def offline_validation(X, y, srate=250):
@@ -134,7 +120,6 @@ def offline_validation(X, y, srate=250):
         logger.info("离线验证单折完成")
     logger.info(f"平均准确率: {np.mean(kfold_accs):.2f}")
     return np.mean(kfold_accs)
-
 
 # 时域分析
 def time_feature(X, meta, dataset, event, channel, latency=0):
@@ -165,7 +150,6 @@ def time_feature(X, meta, dataset, event, channel, latency=0):
                            channels=Feature_R.All_channel, axes=ax)
     plt.show()
     logger.info("时域分析完成")
-
 
 # 频域分析
 def frequency_feature(X, chan_names, event, SNRchannels, plot_ch, srate=250):
@@ -275,7 +259,6 @@ def frequency_feature(X, chan_names, event, SNRchannels, plot_ch, srate=250):
 
     return SNRchannels, snr
 
-
 # 时频域分析
 def time_frequency_feature(X, y, chan_names, srate=250):
     logger.info("开始时频域分析")
@@ -340,11 +323,10 @@ def time_frequency_feature(X, y, chan_names, srate=250):
     plt.show()
     logger.info("希尔伯特变换完成")
 
-
 if __name__ == '__main__':
     srate = 1000
     stim_interval = [(0.14, 1.14)]
-    subjects = list(range(1, 3))
+    subjects = list(range(1, 4))
     pick_chs = ['PZ', 'PO5', 'PO3', 'POZ', 'PO4', 'PO6', 'O1', 'OZ', 'O2']
     dataset = Wang2016()
     paradigm = SSVEP(
@@ -361,7 +343,6 @@ if __name__ == '__main__':
         verbose=False)
     y = label_encoder(y, np.unique(y))
     logger.info("数据加载成功")
-
 
     frequency_feature(X[..., :int(srate)], pick_chs, '8.0', 'PO5', 5, 1000)
     time_frequency_feature(X[..., :int(srate)], y, pick_chs)

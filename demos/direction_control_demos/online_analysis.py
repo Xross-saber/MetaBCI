@@ -5,9 +5,8 @@ import mne
 from mne.filter import resample
 from pylsl import StreamInfo, StreamOutlet
 from psychopy import monitors
-from psychopy.tools.monitorunittools import deg2pix
 from metabci.brainstim.paradigm import (
-    SSVEP, P300, MI, AVEP, SSAVEP, paradigm, pix2height, code_sequence_generate,
+    SSVEP, paradigm
 )
 from metabci.brainstim.framework import Experiment
 from metabci.brainflow.amplifiers import NeuroScan, Marker
@@ -16,7 +15,7 @@ from metabci.brainda.algorithms.decomposition.base import (
     generate_filterbank, generate_cca_references)
 from metabci.brainda.algorithms.utils.model_selection import (
     EnhancedLeaveOneGroupOut)
-from metabci.brainda.algorithms.decomposition import FBTDCA
+from metabci.brainda.algorithms.decomposition import FBDSP
 from metabci.brainda.utils import upper_ch_names
 from mne.io import read_raw_cnt
 from sklearn.base import BaseEstimator, ClassifierMixin
@@ -186,7 +185,7 @@ if __name__ == "__main__":
 
     # 配置 SSVEP 范式
     n_elements, rows, columns = 40, 5, 8
-    stim_length, stim_width = 30, 40
+    stim_length, stim_width = 70, 70
     stim_color, tex_color = [1, 1, 1], [1, 1, 1]
     fps = 240
     stim_time = 0.54  # 匹配 Online_ssvep.py 的 stim_interval=[0.14, 0.68]
@@ -257,7 +256,7 @@ if __name__ == "__main__":
     nrep = 2
     online = True
     ex.register_paradigm(
-        "basic SSVEP",
+        "进入操控界面",
         paradigm,
         VSObject=basic_ssvep,
         bg_color=bg_color,
@@ -281,7 +280,7 @@ if __name__ == "__main__":
     ns.start_trans()
     ex.run()  # 运行 SSVEP 范式
 
-    input('press any key to close\n')
+    input('按任意键退出\n')
     ns.down_worker(feedback_worker_name)
     time.sleep(1)
     ns.stop_trans()

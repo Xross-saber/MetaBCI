@@ -293,9 +293,8 @@ class Experiment:
         if "expguide_textstim" not in stims:
             stims["expguide_textstim"] = visual.TextStim(
                 win,
-                text="Welcome to the BCI world!\nPress Enter to select one of the following paradigms\nPress q to "
-                     "quit\n"
-                "You can press esc to leave the program at any time!",
+                text="心桥共生生活辅助系统\n按‘“enter”’进入控制界面\n按q退出控制界面\n"
+                "按esc退出程序",
                 units="height",
                 pos=[0, 0.3],
                 height=0.04,

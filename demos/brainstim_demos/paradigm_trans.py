@@ -10,7 +10,7 @@ from math import pi
 from psychopy import data, visual, event
 from psychopy.visual.circle import Circle
 from pylsl import StreamInlet, resolve_byprop  # type: ignore
-from .utils import NeuroScanPort, NeuraclePort, _check_array_like
+from metabci.brainstim.utils import NeuroScanPort, NeuraclePort, _check_array_like
 import threading
 from copy import copy
 import random
@@ -300,14 +300,25 @@ class KeyboardInterface(object):
         self.rows = rows
 
     def config_text(
-            self, unit="pix", symbols=["AB","AB","AB","AB","AB",
-                                       "AB","开启\n跟随","关闭\n跟随","AB","AB",
-                                       "AB","左转\n30度","向右","关闭\n避让","AB",
-                                       "AB","前进\n50cm","旋转","后退\n50cm","AB",
-                                       "AB","右转\n30度","向左","打开\n避让","AB",
-                                       "抬头","头左转\n30度","头右转\n30度","低头","AB",
-                                       "开启\n发射", "攻击\n一次", "关闭\n发射", "AB", "AB",
-                                       "AB","AB","AB","AB","AB",], symbol_height=0, tex_color=[1, 1, 1], text_offset=[0, 0]
+            self, unit="pix", symbols=["开启\n发射", "攻击\n一次","关闭\n发射",
+                                       "开启\n跟随","关闭\n跟随","开启\n发射",
+                                       "左转\n30度","左行\n50cm","关闭\n避让",
+                                       "前进\n50cm", "旋转", "后退\n50cm",
+                                       "右转\n30度", "右行\n50cm", "打开\n避让",
+                                       "头左转\n30度","攻击\n一次","头右转\n30度",
+                                       "抬头", "低头", "待机",
+                                       "开启\n跟随","关闭\n跟随","AB",
+                                       "AB","AB","左转\n30度",
+                                       "向右","关闭\n避让","AB",
+                                       "AB","前进\n50cm","旋转",
+                                       "后退\n50cm","AB","AB",
+                                       "右转\n30度","向左","打开\n避让",
+                                       "AB","抬头","头左转\n30度",
+                                       "头右转\n30度","低头","AB",
+                                       "开启\n发射", "攻击\n一次", "关闭\n发射",
+                                       "AB", "AB","AB",
+                                       "AB","AB","AB",
+                                       "AB",], symbol_height=0, tex_color=[1, 1, 1], text_offset=[0, 0]
     ):
         """Sets the text within the stimulus block to support both single characters and strings.
 

@@ -4,13 +4,7 @@ from psychopy import monitors
 import numpy as np
 from metabci.brainstim.paradigm import (
     SSVEP,
-    P300,
-    MI,
-    AVEP,
-    SSAVEP,
     paradigm,
-    pix2height,
-    code_sequence_generate,
 )
 from metabci.brainstim.framework import Experiment
 from psychopy.tools.monitorunittools import deg2pix
@@ -24,7 +18,7 @@ if __name__ == "__main__":
     )
     mon.setSizePix([1920, 1080])  # 显示器的分辨率
     mon.save()
-    bg_color_warm = np.array([0, 0, 0])
+    bg_color_warm = np.array([-1, -1, -1])
     win_size = np.array([1440, 960])
     # esc/q退出开始选择界面
     ex = Experiment(
@@ -45,7 +39,7 @@ if __name__ == "__main__":
     SSVEP
     """
     n_elements, rows, columns = 40, 5, 8  # n_elements 指令数量;  rows 行;  columns 列
-    stim_length, stim_width = 30, 40  # ssvep单指令的尺寸
+    stim_length, stim_width = 80, 80  # ssvep单指令的尺寸
     stim_color, tex_color = [1, 1, 1], [1, 1, 1]  # 指令的颜色，文字的颜色
     fps = 240  # 屏幕刷新率
     stim_time = 2  # 刺激时长
@@ -75,7 +69,7 @@ if __name__ == "__main__":
     basic_ssvep.config_index()
     basic_ssvep.config_response()
 
-    bg_color = np.array([0.3, 0.3, 0.3])  # 背景颜色
+    bg_color = np.array([-1, -1, -1])  # 背景颜色
     display_time = 1  # 范式开始1s的warm时长
     index_time = 1  # 提示时长，转移视线
     rest_time = 0.5  # 提示后的休息时长
@@ -86,7 +80,7 @@ if __name__ == "__main__":
     lsl_source_id = "meta_online_worker"  # None                 # source id
     online = False  # True                                       # 在线实验的标志
     ex.register_paradigm(
-        "basic SSVEP",
+        "进入操控界面",
         paradigm,
         VSObject=basic_ssvep,
         bg_color=bg_color,
