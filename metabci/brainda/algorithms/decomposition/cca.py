@@ -2238,3 +2238,4 @@ class FBTRCAR(FilterBankSSVEP, ClassifierMixin):
             features = np.mean(features, axis=1)
         labels = self.classes_[np.argmax(features, axis=-1)]
         return labels
+

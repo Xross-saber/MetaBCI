@@ -14,7 +14,7 @@ from mne.filter import resample
 import warnings
 from metabci.brainda.datasets.tsinghua import Wang2016
 from metabci.brainflow.logger import get_logger
-from scipy import signal
+from sklearn.metrics import precision_score, recall_score, f1_score
 
 # 配置日志
 logger = get_logger("offline_accuracy")
@@ -97,6 +97,8 @@ def offline_validation(X, y, srate=250):
     y = np.reshape(y, (-1))
 
     kfold_accs = []
+    all_p_labels = []
+    all_y_test = []
     spliter = EnhancedLeaveOneGroupOut(return_validate=False)
     for train_ind, test_ind in spliter.split(X, y=y):
         X_train, y_train = np.copy(X[train_ind]), np.copy(y[train_ind])
@@ -105,14 +107,26 @@ def offline_validation(X, y, srate=250):
         model = train_model(X_train, y_train, srate=srate)
         p_labels = model_predict(X_test, srate=srate, model=model)
         kfold_accs.append(np.mean(p_labels == y_test))
+        all_p_labels.extend(p_labels)
+        all_y_test.extend(y_test)
         logger.info("offline_validation结束运行")
-    return np.mean(kfold_accs)
+
+    acc = np.mean(kfold_accs)
+    precision = precision_score(all_y_test, all_p_labels, average='weighted')
+    recall = recall_score(all_y_test, all_p_labels, average='weighted')
+    f1 = f1_score(all_y_test, all_p_labels, average='weighted')
+
+    logger.info(f"Current Model accuracy: {acc:.2f}")
+    logger.info(f"Precision: {precision:.2f}")
+    logger.info(f"Recall: {recall:.2f}")
+    logger.info(f"F1 Score: {f1:.2f}")
+    return acc, precision, recall, f1
 
 if __name__ == '__main__':
     # 初始化参数
     srate = 250
     stim_interval = [(0.5, 5.5)]
-    subjects = list(range(1, 5))
+    subjects = list(range(1, 6))
     paradigm = 'ssvep'
 
     dataset = Wang2016()
@@ -131,7 +145,9 @@ if __name__ == '__main__':
     y = label_encoder(y, np.unique(y))
     logger.info(f"X 形状: {X.shape}, y 形状: {y.shape}")
 
-    # 计算离线正确率
-    acc = offline_validation(X, y, srate=srate)
-    logger.info("Current Model accuracy: {:.2f}".format(acc))
-    print("Current Model accuracy:{:.2f}".format(acc))
+    # 计算离线正确率及相关指标
+    acc, precision, recall, f1 = offline_validation(X, y, srate=srate)
+    print(f"Current Model accuracy: {acc:.2f}")
+    print(f"Precision: {precision:.2f}")
+    print(f"Recall: {recall:.2f}")
+    print(f"F1 Score: {f1:.2f}")

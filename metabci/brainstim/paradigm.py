@@ -214,11 +214,13 @@ class KeyboardInterface(object):
     """
 
     def __init__(self, win, colorSpace="rgb", allowGUI=True):
+        # 启用垂直同步以提高呈现稳定性
         self.win = win
         win.colorSpace = colorSpace
         win.allowGUI = allowGUI
+        win.waitBlanking = True  # 新增：确保与屏幕刷新率同步
         win_size = win.size
-        self.win_size = np.array(win_size)  # e.g. [1920,1080]
+        self.win_size = np.array(win_size)  # e.g. [1920,1080] # e.g. [1920,1080]
 
     def config_pos(
         self,
@@ -622,41 +624,7 @@ class SSVEP(VisualStim):
         """
         super().__init__(win=win, colorSpace=colorSpace, allowGUI=allowGUI)
 
-    def config_color(
-        self,
-        refresh_rate,
-        stim_time,
-        stim_color,
-        stimtype="sinusoid",
-        stim_opacities=1,
-        **kwargs
-    ):
-        """Config color of stimuli.
-
-        Parameters
-        ----------
-            refresh_rate: int
-                Refresh rate of screen.
-            stim_time: float
-                Time of each stimulus.
-            stim_color: int
-                The color of the stimulus block.
-            stimtype: str
-                Stimulation flicker mode, default to sine sampling flicker.
-            stim_opacities: float
-                Opacity, default to opaque.
-            freqs: list, shape(fre, …)
-                Stimulus block flicker frequency, length consistent with the number of stimulus blocks.
-            phases: list, shape(phase, …)
-                Stimulus block flicker phase, length consistent with the number of stimulus blocks.
-
-        Raises
-        ----------
-            Exception: Inconsistent frames and color matrices
-
-        """
-
-        # initialize extra inputs
+    def config_color(self, refresh_rate, stim_time, stim_color, stimtype="sinusoid", stim_opacities=1, **kwargs):
         self.refresh_rate = refresh_rate
         self.stim_time = stim_time
         self.stim_color = stim_color
@@ -664,47 +632,31 @@ class SSVEP(VisualStim):
         self.stim_frames = int(stim_time * self.refresh_rate)
 
         if refresh_rate == 0:
-            self.refresh_rate = np.floor(
-                self.win.getActualFrameRate(nIdentical=20, nWarmUpFrames=20)
-            )
+            self.refresh_rate = np.floor(self.win.getActualFrameRate(nIdentical=20, nWarmUpFrames=20))
 
-        self.stim_oris = np.zeros((self.n_elements,))  # orientation
-        self.stim_sfs = np.zeros((self.n_elements,))  # spatial frequency
-        self.stim_contrs = np.ones((self.n_elements,))  # contrast
+        self.stim_oris = np.zeros((self.n_elements,))
+        self.stim_sfs = np.zeros((self.n_elements,))
+        self.stim_contrs = np.ones((self.n_elements,))
 
-        # check extra inputs
-        if "stim_oris" in kwargs.keys():
-            self.stim_oris = kwargs["stim_oris"]
-        if "stim_sfs" in kwargs.keys():
-            self.stim_sfs = kwargs["stim_sfs"]
-        if "stim_contrs" in kwargs.keys():
-            self.stim_contrs = kwargs["stim_contrs"]
-        if "freqs" in kwargs.keys():
-            self.freqs = kwargs["freqs"]
-        if "phases" in kwargs.keys():
-            self.phases = kwargs["phases"]
+        if "stim_oris" in kwargs: self.stim_oris = kwargs["stim_oris"]
+        if "stim_sfs" in kwargs: self.stim_sfs = kwargs["stim_sfs"]
+        if "stim_contrs" in kwargs: self.stim_contrs = kwargs["stim_contrs"]
+        if "freqs" in kwargs: self.freqs = kwargs["freqs"]
+        if "phases" in kwargs: self.phases = kwargs["phases"]
 
-        # check consistency
+        # 预计算 stim_colors 以减少实时计算开销
         if stimtype == "sinusoid":
-            self.stim_colors = (
-                sinusoidal_sample(
-                    freqs=self.freqs,
-                    phases=self.phases,
-                    srate=self.refresh_rate,
-                    frames=self.stim_frames,
-                    stim_color=stim_color,
-                )
-                - 1
-            )
-            if self.stim_colors[0].shape[0] != self.n_elements:
+            self.stim_colors = sinusoidal_sample(
+                freqs=self.freqs,
+                phases=self.phases,
+                srate=self.refresh_rate,
+                frames=self.stim_frames,
+                stim_color=stim_color
+            ) - 1
+            if self.stim_colors.shape[1] != self.n_elements:
                 raise Exception("Please input correct num of stims!")
 
-        incorrect_frame = self.stim_colors.shape[0] != self.stim_frames
-        incorrect_number = self.stim_colors.shape[1] != self.n_elements
-        if incorrect_frame or incorrect_number:
-            raise Exception("Incorrect color matrix or flash frames!")
-
-        # add flashing targets onto interface
+        # 预生成 flash_stimuli 数组以提高绘制效率
         self.flash_stimuli = []
         for sf in range(self.stim_frames):
             self.flash_stimuli.append(
@@ -724,7 +676,6 @@ class SSVEP(VisualStim):
                     texRes=48,
                 )
             )
-
 
 # standard P300 paradigm
 
@@ -2507,6 +2458,9 @@ def paradigm(
             See support device list in brainstim README file
 
     """
+    win.color = bg_color
+    fps = VSObject.refresh_rate
+    win.recordFrameIntervals = True
 
     if not _check_array_like(bg_color, 3):
         raise ValueError("bg_color should be 3 elements array-like object.")
@@ -3201,3 +3155,5 @@ def paradigm(
                     VSObject.text_response.draw()
                     iframe += 1
                     win.flip()
+    print(f"Average frame time: {win.getMsPerFrame():.2f} ms")  # 打印平均帧时间以便调试
+    win.close()

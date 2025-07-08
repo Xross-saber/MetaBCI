@@ -2,7 +2,7 @@ import math
 
 from psychopy import monitors
 import numpy as np
-from paradigm_trans import SSVEP,paradigm
+from demos.brainstim_demos.paradigm_trans import SSVEP,paradigm
 from metabci.brainstim.framework import Experiment
 from psychopy.tools.monitorunittools import deg2pix
 
