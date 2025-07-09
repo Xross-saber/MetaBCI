@@ -12,9 +12,9 @@ class FunctionSettingUI:
 
         # 存储所有设置值
         self.settings = {
-            "n_elements": 18,
+            "n_elements": 21,
             "rows": 3,
-            "columns": 6,
+            "columns": 7,
             "fps": 60,  # Hz
             "stim_time": 2  # 秒
         }
@@ -23,7 +23,7 @@ class FunctionSettingUI:
         self.targets = [
             "开启发射", "攻击一次", "关闭发射", "开启跟随", "关闭跟随", "停止",
             "左转30度", "左行50cm", "关闭避让", "前进50cm", "旋转", "后退50cm",
-            "右转30度", "右行50cm", "打开避让", "头左转30度", "持续攻击", "头右转30度"
+            "右转30度", "右行50cm", "开启避让", "头左转30度", "持续攻击", "头右转30度","抬头","低头","待机"
         ]
         self.selected_targets = set()  # 存储选中的目标
 
@@ -201,7 +201,7 @@ class FunctionSettingUI:
             self.target_buttons[target] = btn
 
         # 显示已选目标数量
-        self.selected_count_var = tk.StringVar(value=f"已选择: 0/18")
+        self.selected_count_var = tk.StringVar(value=f"已选择: 0/21")
         count_label = ttk.Label(
             page,
             textvariable=self.selected_count_var,
