@@ -42,7 +42,7 @@ if __name__ == "__main__":
     stim_length, stim_width = 80, 80  # ssvep单指令的尺寸
     stim_color, tex_color = [1, 1, 1], [1, 1, 1]  # 指令的颜色，文字的颜色
     fps = 240  # 屏幕刷新率
-    stim_time = 2  # 刺激时长
+    stim_time = 1  # 刺激时长
     stim_opacities = 1  # 刺激对比度
     freqs = np.arange(8, 16, 0.2)  # 指令的频率
     phases = np.array([i * 0.35 % 2 for i in range(n_elements)])  # 指令的相位

@@ -1,8 +1,7 @@
 import math
-
-from psychopy import monitors
 import numpy as np
-from demos.brainstim_demos.paradigm_trans import SSVEP,paradigm
+from psychopy import monitors
+from demos.brainstim_demos.paradigm_trans import SSVEP, paradigm
 from metabci.brainstim.framework import Experiment
 from psychopy.tools.monitorunittools import deg2pix
 import json
@@ -36,18 +35,44 @@ if __name__ == "__main__":
     """
     SSVEP
     """
-    with open('config.json', 'r') as f:
-        config = json.load(f)
+    try:
+        with open('config.json', 'r', encoding='utf-8') as f:
+            config = json.load(f)
+    except UnicodeDecodeError as e:
+        print(f"文件解码错误：{e}")
+        print("尝试使用 UTF-8-SIG 编码...")
+        try:
+            with open('config.json', 'r', encoding='utf-8-sig') as f:
+                config = json.load(f)
+        except UnicodeDecodeError as e:
+            print(f"仍然无法解码：{e}")
+            print("请检查 config.json 的编码格式（推荐 UTF-8），或使用文本编辑器将其转换为 UTF-8 编码。")
+            exit(1)
+        except json.JSONDecodeError as e:
+            print(f"JSON 解析错误：{e}")
+            print("请检查 config.json 文件内容是否为合法 JSON 格式。")
+            exit(1)
+    except FileNotFoundError:
+        print("错误：未找到 config.json 文件，请确保文件存在于正确路径。")
+        exit(1)
+    except json.JSONDecodeError as e:
+        print(f"JSON 解析错误：{e}")
+        print("请检查 config.json 文件内容是否为合法 JSON 格式。")
+        exit(1)
 
     # 使用配置
-    n_elements, rows, columns = config['n_elements'], config['rows'], config['columns']  # n_elements 指令数量;  rows 行;  columns 列
-    fps = config['fps']  # 屏幕刷新率
-    stim_time = config['stim_time']  # 刺激时长
+    try:
+        n_elements, rows, columns = config['n_elements'], config['rows'], config['columns']  # n_elements 指令数量; rows 行; columns 列
+        fps = config['fps']  # 屏幕刷新率
+        stim_time = config['stim_time']  # 刺激时长
+    except KeyError as e:
+        print(f"配置错误：缺少必要的字段 {e}，请检查 config.json 是否包含 'n_elements', 'rows', 'columns', 'fps', 'stim_time'。")
+        exit(1)
 
     stim_color, tex_color = [1, 1, 1], [1, 1, 1]  # 指令的颜色，文字的颜色
     stim_length, stim_width = 100, 100  # ssvep单指令的尺寸
     stim_opacities = 1  # 刺激对比度
-    freqs = np.arange(8, (8+n_elements*0.2), 0.2)  # 指令的频率
+    freqs = np.arange(8, 8 + n_elements * 0.2, 0.2)  # 指令的频率
     phases = np.array([i * 0.35 % 2 for i in range(n_elements)])  # 指令的相位
 
     basic_ssvep = SSVEP(win=win)
@@ -75,13 +100,13 @@ if __name__ == "__main__":
     bg_color = np.array([-1, -1, -1])  # 背景颜色
     display_time = 1  # 范式开始1s的warm时长
     index_time = 1  # 提示时长，转移视线
-    rest_time = 0.5  # 提示后的休息时长
+    rest_time = 1  # 提示后的休息时长
     response_time = 1  # 在线反馈
-    port_addr = "COM8"  #  0xdefc                                  # 采集主机端口
-    port_addr = None  #  0xdefc
+    port_addr = "COM8"  # 采集主机端口
+    port_addr = None  # 覆盖为 None
     nrep = 2  # block数目
-    lsl_source_id = "meta_online_worker"  # None                 # source id
-    online = False  # True                                       # 在线实验的标志
+    lsl_source_id = "meta_online_worker"  # source id
+    online = False  # 在线实验的标志
     ex.register_paradigm(
         "进入操控界面",
         paradigm,

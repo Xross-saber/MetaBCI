@@ -16,6 +16,9 @@ from copy import copy
 import random
 from scipy import signal
 from PIL import Image
+from trigger_config import TriggerConfig
+from trigger.TriggerController import TriggerController
+
 
 
 # prefunctions
@@ -2360,6 +2363,25 @@ class GetPlabel_MyTherad:
     def __init__(self, inlet):
         self.inlet = inlet
         self._exit = threading.Event()
+        self.trig_ctrl = TriggerController(TriggerConfig.EEG_TYPE,
+                                           TriggerConfig.TRIGGER_HANDLE,
+                                           TriggerConfig.TRIGGER_PORT)
+        self.trig_ctrl.open()
+
+        # trial开始trigger
+        self.trial_start_trig = None
+        # 刺激开始输出trigger
+        self.trial_start_trig: int = TriggerConfig.TRIAL_START_TRIGGER
+        # 刺激结束输出trigger
+        self.trial_end_trig: int = TriggerConfig.TRIAL_END_TRIGGER
+        # block启动输出trigger
+        self.block_start_trig: int = TriggerConfig.BLOCK_START_TRIGGER
+        # block结束输出trigger
+        self.block_end_trig: int = TriggerConfig.BLOCK_END_TRIGGER
+        # 数据开始记录trigger
+        self.record_start_trig: int = TriggerConfig.RECORD_START_TRIGGER
+        # 数据停止记录trigger
+        self.record_end_trig: int = TriggerConfig.RECORD_END_TRIGGER
 
     def feedbackThread(self):
         """Start the thread."""
@@ -2469,6 +2491,9 @@ def paradigm(
             See support device list in brainstim README file
 
     """
+
+
+
     win.color = bg_color
     fps = VSObject.refresh_rate
     win.recordFrameIntervals = True
@@ -2548,6 +2573,10 @@ def paradigm(
             VSObject.index_stimuli.setPos(position)
 
             # phase I: speller & index (eye shifting)
+        #def run(self):
+            #self.trig_ctrl.send(self.trial_start_trig)
+
+
             iframe = 0
             while iframe < int(fps * index_time):
                 if online:

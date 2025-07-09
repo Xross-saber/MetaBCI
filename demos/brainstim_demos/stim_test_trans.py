@@ -6,6 +6,7 @@ from demos.brainstim_demos.paradigm_trans import SSVEP,paradigm
 from metabci.brainstim.framework import Experiment
 from psychopy.tools.monitorunittools import deg2pix
 
+
 if __name__ == "__main__":
     mon = monitors.Monitor(
         name="primary_monitor",
@@ -35,13 +36,13 @@ if __name__ == "__main__":
     """
     SSVEP
     """
-    n_elements, rows, columns = 18, 3, 6  # n_elements 指令数量;  rows 行;  columns 列
+    n_elements, rows, columns = 21, 3, 7  # n_elements 指令数量;  rows 行;  columns 列
     stim_length, stim_width = 100, 100  # ssvep单指令的尺寸
     stim_color, tex_color = [1, 1, 1], [1, 1, 1]  # 指令的颜色，文字的颜色
     fps = 240  # 屏幕刷新率
-    stim_time = 2  # 刺激时长
+    stim_time = 1  # 刺激时长
     stim_opacities = 1  # 刺激对比度
-    freqs = np.arange(8, 11.6, 0.2)  # 指令的频率
+    freqs = np.arange(8, 12.2, 0.2)  # 指令的频率
     phases = np.array([i * 0.35 % 2 for i in range(n_elements)])  # 指令的相位
 
     basic_ssvep = SSVEP(win=win)

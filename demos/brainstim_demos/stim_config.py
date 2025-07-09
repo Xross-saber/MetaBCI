@@ -107,7 +107,7 @@ class FunctionSettingUI:
         # 添加说明文字
         note_label = ttk.Label(
             page,
-            text="输入正整数（如功能数量=18，行数=3，列数=6）",
+            text="输入正整数（如功能数量=21，行数=3，列数=7）\n功能数量需要不少于15个",
             font=("SimHei", 9),
             foreground="#666666"
         )
