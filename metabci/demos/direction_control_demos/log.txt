@@ -1,0 +1,1376 @@
+2025-07-08 16:17:05,809 - SSVEP_Offline_Analysis - INFO - 加载数据成功
+2025-07-08 16:17:05,809 - SSVEP_Offline_Analysis - INFO - offline_validation开始运行
+2025-07-08 16:17:05,890 - SSVEP_Offline_Analysis - INFO - train_model开始运行
+2025-07-08 16:17:07,297 - SSVEP_Offline_Analysis - INFO - 开始优化滤波器权重
+2025-07-08 16:17:28,447 - SSVEP_Offline_Analysis - INFO - 优化后的滤波器权重: [0.26839237 0.2493188  0.20027248 0.16689373 0.11512262]
+2025-07-08 16:17:33,023 - SSVEP_Offline_Analysis - INFO - train_model结束运行
+2025-07-08 16:17:33,026 - SSVEP_Offline_Analysis - INFO - model_predict开始运行
+2025-07-08 16:29:58,062 - SSVEP_Time_Freq_Analysis - INFO - 数据加载成功
+2025-07-08 16:29:58,062 - SSVEP_Time_Freq_Analysis - INFO - 开始频域分析，事件: 8.0，通道: PO5
+2025-07-08 16:29:58,073 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 形状: (480, 9, 1000)
+2025-07-08 16:29:58,076 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 是否包含 NaN: False
+2025-07-08 16:29:58,101 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 均值: 3.65e-02，标准差: 6.87e+00
+2025-07-08 16:30:05,546 - SSVEP_Time_Freq_Analysis - INFO - 筛选后 X 形状，事件 8.0: (12, 9, 1000)
+2025-07-08 16:30:05,550 - SSVEP_Time_Freq_Analysis - INFO - 均值数据形状: (9, 1000)
+2025-07-08 16:30:05,550 - SSVEP_Time_Freq_Analysis - INFO - 均值数据是否包含 NaN: False
+2025-07-08 16:30:05,550 - SSVEP_Time_Freq_Analysis - INFO - 均值数据均值: -2.31e-03，标准差: 2.43e+00
+2025-07-08 16:30:05,551 - SSVEP_Time_Freq_Analysis - INFO - 选择的通道: PO5，索引: 1
+2025-07-08 16:30:05,551 - SSVEP_Time_Freq_Analysis - INFO - PSD 频率（前 10 个）: [0.    0.256 0.512 0.768 1.024 1.28  1.536 1.792 2.048 2.304]
+2025-07-08 16:30:05,551 - SSVEP_Time_Freq_Analysis - INFO - PSD 值（前 10 个）: [3.15544362e-34 2.55473258e-03 1.33549262e-02 3.83805312e-01
+ 4.78710975e+00 7.70285971e-01 6.93536019e-01 1.86278635e-01
+ 8.03308567e-01 4.76078445e-01]
+2025-07-08 16:30:05,551 - SSVEP_Time_Freq_Analysis - INFO - 8.0 Hz 的 SNR: 0.03
+2025-07-08 16:31:25,483 - SSVEP_Time_Freq_Analysis - INFO - PSD 计算和绘图完成
+2025-07-08 16:31:25,484 - SSVEP_Time_Freq_Analysis - INFO - 开始时频域分析
+2025-07-08 16:31:26,923 - SSVEP_Time_Freq_Analysis - INFO - STFT 分析完成
+2025-07-08 16:31:28,966 - SSVEP_Time_Freq_Analysis - INFO - 莫雷小波变换完成
+2025-07-08 16:31:33,774 - SSVEP_Time_Freq_Analysis - INFO - 希尔伯特变换完成
+2025-07-08 16:33:22,907 - SSVEP_Time_Freq_Analysis - INFO - 数据加载成功
+2025-07-08 16:33:22,907 - SSVEP_Time_Freq_Analysis - INFO - 开始频域分析，事件: 8.0，通道: PO5
+2025-07-08 16:33:22,915 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 形状: (480, 9, 1000)
+2025-07-08 16:33:22,919 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 是否包含 NaN: False
+2025-07-08 16:33:22,944 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 均值: 3.65e-02，标准差: 6.87e+00
+2025-07-08 16:33:30,047 - SSVEP_Time_Freq_Analysis - INFO - 筛选后 X 形状，事件 8.0: (12, 9, 1000)
+2025-07-08 16:33:30,048 - SSVEP_Time_Freq_Analysis - INFO - 均值数据形状: (9, 1000)
+2025-07-08 16:33:30,048 - SSVEP_Time_Freq_Analysis - INFO - 均值数据是否包含 NaN: False
+2025-07-08 16:33:30,048 - SSVEP_Time_Freq_Analysis - INFO - 均值数据均值: -2.31e-03，标准差: 2.43e+00
+2025-07-08 16:33:30,048 - SSVEP_Time_Freq_Analysis - INFO - 选择的通道: PO5，索引: 1
+2025-07-08 16:33:30,049 - SSVEP_Time_Freq_Analysis - INFO - PSD 频率（前 10 个）: [0.    0.256 0.512 0.768 1.024 1.28  1.536 1.792 2.048 2.304]
+2025-07-08 16:33:30,049 - SSVEP_Time_Freq_Analysis - INFO - PSD 值（前 10 个）: [3.15544362e-34 2.55473258e-03 1.33549262e-02 3.83805312e-01
+ 4.78710975e+00 7.70285971e-01 6.93536019e-01 1.86278635e-01
+ 8.03308567e-01 4.76078445e-01]
+2025-07-08 16:33:30,049 - SSVEP_Time_Freq_Analysis - INFO - 8.0 Hz 的 SNR: 0.03
+2025-07-08 16:33:37,085 - SSVEP_Time_Freq_Analysis - INFO - PSD 计算和绘图完成
+2025-07-08 16:33:37,085 - SSVEP_Time_Freq_Analysis - INFO - 开始时频域分析
+2025-07-08 16:33:38,229 - SSVEP_Time_Freq_Analysis - INFO - STFT 分析完成
+2025-07-08 16:33:39,940 - SSVEP_Time_Freq_Analysis - INFO - 莫雷小波变换完成
+2025-07-08 16:36:03,519 - SSVEP_Time_Freq_Analysis - INFO - 数据加载成功
+2025-07-08 16:36:03,519 - SSVEP_Time_Freq_Analysis - INFO - 开始频域分析，事件: 8.0，通道: PO5
+2025-07-08 16:36:03,526 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 形状: (480, 9, 1000)
+2025-07-08 16:36:03,530 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 是否包含 NaN: False
+2025-07-08 16:36:03,557 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 均值: 3.65e-02，标准差: 6.87e+00
+2025-07-08 16:36:11,101 - SSVEP_Time_Freq_Analysis - INFO - 筛选后 X 形状，事件 8.0: (12, 9, 1000)
+2025-07-08 16:36:11,102 - SSVEP_Time_Freq_Analysis - INFO - 均值数据形状: (9, 1000)
+2025-07-08 16:36:11,102 - SSVEP_Time_Freq_Analysis - INFO - 均值数据是否包含 NaN: False
+2025-07-08 16:36:11,102 - SSVEP_Time_Freq_Analysis - INFO - 均值数据均值: -2.31e-03，标准差: 2.43e+00
+2025-07-08 16:36:11,102 - SSVEP_Time_Freq_Analysis - INFO - 选择的通道: PO5，索引: 1
+2025-07-08 16:36:11,103 - SSVEP_Time_Freq_Analysis - INFO - PSD 频率（前 10 个）: [0.    0.256 0.512 0.768 1.024 1.28  1.536 1.792 2.048 2.304]
+2025-07-08 16:36:11,103 - SSVEP_Time_Freq_Analysis - INFO - PSD 值（前 10 个）: [3.15544362e-34 2.55473258e-03 1.33549262e-02 3.83805312e-01
+ 4.78710975e+00 7.70285971e-01 6.93536019e-01 1.86278635e-01
+ 8.03308567e-01 4.76078445e-01]
+2025-07-08 16:36:11,103 - SSVEP_Time_Freq_Analysis - INFO - 8.0 Hz 的 SNR: 0.03
+2025-07-08 16:36:12,686 - SSVEP_Time_Freq_Analysis - INFO - PSD 计算和绘图完成
+2025-07-08 16:36:12,687 - SSVEP_Time_Freq_Analysis - INFO - 开始时频域分析
+2025-07-08 16:36:14,466 - SSVEP_Time_Freq_Analysis - INFO - STFT 分析完成
+2025-07-08 16:36:16,297 - SSVEP_Time_Freq_Analysis - INFO - 莫雷小波变换完成
+2025-07-08 16:36:17,093 - SSVEP_Time_Freq_Analysis - INFO - 希尔伯特变换完成
+2025-07-08 17:51:42,175 - offline_accuracy - INFO - X 形状: (480, 60, 1250), y 形状: (480,)
+2025-07-08 17:51:42,176 - offline_accuracy - INFO - offline_validation开始运行
+2025-07-08 17:51:42,276 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 17:51:42,276 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 17:51:56,994 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 17:51:57,003 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 17:51:57,032 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 17:51:58,084 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 17:51:58,085 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 17:51:58,196 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 17:51:58,196 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 17:52:12,686 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 17:52:12,701 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 17:52:12,729 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 17:52:13,715 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 17:52:13,716 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 17:52:13,830 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 17:52:13,830 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 17:52:28,263 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 17:52:28,280 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 17:52:28,308 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 17:52:29,293 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 17:52:29,295 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 17:52:29,407 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 17:52:29,407 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 17:52:43,866 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 17:52:43,883 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 17:52:43,911 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 17:52:44,900 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 17:52:44,901 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 17:52:45,016 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 17:52:45,016 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 17:52:59,418 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 17:52:59,436 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 17:52:59,462 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 17:53:00,456 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 17:53:00,457 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 17:53:00,578 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 17:53:00,578 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 17:53:15,099 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 17:53:15,114 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 17:53:15,144 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 17:53:16,136 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 17:53:16,137 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 17:53:16,259 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 17:53:16,259 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 17:53:30,655 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 17:53:30,671 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 17:53:30,700 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 17:53:31,692 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 17:53:31,693 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 17:53:31,806 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 17:53:31,806 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 17:53:46,417 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 17:53:46,432 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 17:53:46,459 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 17:53:47,459 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 17:53:47,461 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 17:53:47,575 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 17:53:47,575 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 17:54:02,014 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 17:54:02,035 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 17:54:02,061 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 17:54:03,047 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 17:54:03,048 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 17:54:03,161 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 17:54:03,161 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 17:54:17,616 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 17:54:17,632 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 17:54:17,660 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 17:54:18,654 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 17:54:18,656 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 17:54:18,767 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 17:54:18,767 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 17:54:33,179 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 17:54:33,198 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 17:54:33,225 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 17:54:34,213 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 17:54:34,214 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 17:54:34,335 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 17:54:34,335 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 17:54:48,791 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 17:54:48,806 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 17:54:48,834 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 17:54:49,818 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 17:54:49,820 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 17:54:49,839 - offline_accuracy - INFO - Current Model accuracy: 0.98
+2025-07-08 18:06:57,539 - offline_accuracy - INFO - X 形状: (480, 60, 1250), y 形状: (480,)
+2025-07-08 18:06:57,539 - offline_accuracy - INFO - offline_validation开始运行
+2025-07-08 18:06:57,670 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:06:57,671 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 18:06:58,030 - offline_accuracy - INFO - 开始优化滤波器权重
+2025-07-08 18:08:08,160 - offline_accuracy - INFO - 优化前 filterweights 形状: (5,)
+2025-07-08 18:08:08,160 - offline_accuracy - INFO - 优化后 new_weights 形状: (5,)
+2025-07-08 18:08:22,439 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:08:22,448 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:08:22,479 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:09:34,645 - offline_accuracy - INFO - X 形状: (480, 60, 1250), y 形状: (480,)
+2025-07-08 18:09:34,646 - offline_accuracy - INFO - offline_validation开始运行
+2025-07-08 18:09:34,771 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:09:34,771 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 18:09:35,080 - offline_accuracy - INFO - 开始优化滤波器权重
+2025-07-08 18:11:30,567 - offline_accuracy - INFO - X 形状: (480, 60, 1250), y 形状: (480,)
+2025-07-08 18:11:30,567 - offline_accuracy - INFO - offline_validation开始运行
+2025-07-08 18:11:30,666 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:11:30,667 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 18:11:45,282 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:11:45,290 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:11:45,320 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:11:46,324 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:11:46,325 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:11:46,437 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:11:46,437 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 18:12:00,991 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:12:01,004 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:12:01,038 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:12:02,034 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:12:02,036 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:12:02,144 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:12:02,144 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 18:12:16,765 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:12:16,778 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:12:16,814 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:12:17,824 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:12:17,825 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:12:17,939 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:12:17,939 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 18:12:32,493 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:12:32,505 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:12:32,539 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:12:33,524 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:12:33,525 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:12:33,638 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:12:33,638 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 18:12:48,192 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:12:48,206 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:12:48,245 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:12:49,240 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:12:49,241 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:12:49,366 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:12:49,366 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 18:13:04,074 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:13:04,087 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:13:04,119 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:13:05,132 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:13:05,133 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:13:05,256 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:13:05,257 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 18:13:20,541 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:13:20,552 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:13:20,586 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:13:21,575 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:13:21,576 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:13:21,688 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:13:21,689 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 18:13:36,597 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:13:36,609 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:13:36,645 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:13:37,669 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:13:37,670 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:13:37,784 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:13:37,784 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 18:13:52,419 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:13:52,432 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:13:52,465 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:13:53,461 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:13:53,462 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:13:53,575 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:13:53,575 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 18:14:08,165 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:14:08,178 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:14:08,212 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:14:09,210 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:14:09,212 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:14:09,326 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:14:09,326 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 18:14:23,857 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:14:23,870 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:14:23,903 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:14:24,896 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:14:24,897 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:14:25,014 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:14:25,014 - offline_accuracy - INFO - 输入 X 形状: (440, 60, 1250)
+2025-07-08 18:14:39,629 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:14:39,642 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:14:39,676 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:14:40,678 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:14:40,679 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:14:40,697 - offline_accuracy - INFO - Current Model accuracy: 0.98
+2025-07-08 18:16:03,888 - offline_accuracy - INFO - X 形状: (720, 60, 1250), y 形状: (720,)
+2025-07-08 18:16:03,888 - offline_accuracy - INFO - offline_validation开始运行
+2025-07-08 18:16:04,041 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:16:04,042 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:16:26,534 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:16:26,548 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:16:26,578 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:16:27,583 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:16:27,584 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:16:27,756 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:16:27,756 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:16:50,189 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:16:50,206 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:16:50,235 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:16:51,243 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:16:51,244 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:16:51,432 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:16:51,433 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:17:13,882 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:17:13,902 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:17:13,930 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:17:14,936 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:17:14,937 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:17:15,117 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:17:15,117 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:17:37,383 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:17:37,398 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:17:37,426 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:17:38,438 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:17:38,439 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:17:38,605 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:17:38,605 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:18:01,034 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:18:01,050 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:18:01,079 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:18:02,070 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:18:02,072 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:18:02,241 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:18:02,241 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:18:24,546 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:18:24,564 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:18:24,594 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:18:25,597 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:18:25,599 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:18:25,763 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:18:25,763 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:18:48,181 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:18:48,198 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:18:48,228 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:18:49,240 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:18:49,241 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:18:49,427 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:18:49,428 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:19:11,782 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:19:11,801 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:19:11,829 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:19:12,834 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:19:12,836 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:19:13,018 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:19:13,018 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:19:35,266 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:19:35,282 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:19:35,313 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:19:36,317 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:19:36,319 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:19:36,492 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:19:36,492 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:19:58,917 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:19:58,935 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:19:58,963 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:19:59,961 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:19:59,963 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:20:00,132 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:20:00,132 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:20:22,494 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:20:22,511 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:20:22,541 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:20:23,538 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:20:23,540 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:20:23,716 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:20:23,716 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:20:46,064 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:20:46,082 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:20:46,114 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:20:47,167 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:20:47,168 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:20:47,364 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:20:47,364 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:21:09,970 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:21:09,987 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:21:10,016 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:21:11,017 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:21:11,018 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:21:11,195 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:21:11,196 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:21:33,340 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:21:33,355 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:21:33,387 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:21:34,403 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:21:34,405 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:21:34,580 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:21:34,580 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:21:56,820 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:21:56,838 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:21:56,870 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:21:57,865 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:21:57,866 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:21:58,043 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:21:58,043 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:22:20,310 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:22:20,327 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:22:20,361 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:22:21,357 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:22:21,358 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:22:21,535 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:22:21,535 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:22:43,719 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:22:43,736 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:22:43,762 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:22:44,774 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:22:44,775 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:22:44,967 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:22:44,967 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 18:23:07,157 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:23:07,182 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:23:07,209 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:23:08,211 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:23:08,212 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:23:08,230 - offline_accuracy - INFO - Current Model accuracy: 0.99
+2025-07-08 18:28:43,947 - SSVEP_Time_Freq_Analysis - INFO - 数据加载成功
+2025-07-08 18:28:43,947 - SSVEP_Time_Freq_Analysis - INFO - 开始频域分析，事件: 8.0，通道: PO5
+2025-07-08 18:28:43,955 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 形状: (480, 9, 1000)
+2025-07-08 18:28:43,959 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 是否包含 NaN: False
+2025-07-08 18:28:43,985 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 均值: 3.65e-02，标准差: 6.87e+00
+2025-07-08 18:28:50,881 - SSVEP_Time_Freq_Analysis - INFO - 筛选后 X 形状，事件 8.0: (12, 9, 1000)
+2025-07-08 18:28:50,885 - SSVEP_Time_Freq_Analysis - INFO - 均值数据形状: (9, 1000)
+2025-07-08 18:28:50,885 - SSVEP_Time_Freq_Analysis - INFO - 均值数据是否包含 NaN: False
+2025-07-08 18:28:50,885 - SSVEP_Time_Freq_Analysis - INFO - 均值数据均值: -2.31e-03，标准差: 2.43e+00
+2025-07-08 18:28:50,885 - SSVEP_Time_Freq_Analysis - INFO - 选择的通道: PO5，索引: 1
+2025-07-08 18:28:50,886 - SSVEP_Time_Freq_Analysis - INFO - PSD 频率（前 10 个）: [0.    0.256 0.512 0.768 1.024 1.28  1.536 1.792 2.048 2.304]
+2025-07-08 18:28:50,886 - SSVEP_Time_Freq_Analysis - INFO - PSD 值（前 10 个）: [3.15544362e-34 2.55473258e-03 1.33549262e-02 3.83805312e-01
+ 4.78710975e+00 7.70285971e-01 6.93536019e-01 1.86278635e-01
+ 8.03308567e-01 4.76078445e-01]
+2025-07-08 18:28:50,886 - SSVEP_Time_Freq_Analysis - INFO - 8.0 Hz 的 SNR: 0.03
+2025-07-08 18:30:08,819 - SSVEP_Time_Freq_Analysis - INFO - PSD 计算和绘图完成
+2025-07-08 18:30:08,820 - SSVEP_Time_Freq_Analysis - INFO - 开始时频域分析
+2025-07-08 18:30:15,400 - SSVEP_Time_Freq_Analysis - INFO - STFT 分析完成
+2025-07-08 18:30:23,218 - SSVEP_Time_Freq_Analysis - INFO - 莫雷小波变换完成
+2025-07-08 18:30:31,796 - SSVEP_Time_Freq_Analysis - INFO - 希尔伯特变换完成
+2025-07-08 18:31:47,441 - SSVEP_Time_Freq_Analysis - INFO - 数据加载成功
+2025-07-08 18:31:47,441 - SSVEP_Time_Freq_Analysis - INFO - 开始频域分析，事件: 8.0，通道: PO5
+2025-07-08 18:31:47,451 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 形状: (720, 9, 1000)
+2025-07-08 18:31:47,455 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 是否包含 NaN: False
+2025-07-08 18:31:47,494 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 均值: 1.77e-02，标准差: 6.34e+00
+2025-07-08 18:31:54,451 - SSVEP_Time_Freq_Analysis - INFO - 筛选后 X 形状，事件 8.0: (12, 9, 1000)
+2025-07-08 18:31:54,452 - SSVEP_Time_Freq_Analysis - INFO - 均值数据形状: (9, 1000)
+2025-07-08 18:31:54,452 - SSVEP_Time_Freq_Analysis - INFO - 均值数据是否包含 NaN: False
+2025-07-08 18:31:54,452 - SSVEP_Time_Freq_Analysis - INFO - 均值数据均值: -2.31e-03，标准差: 2.43e+00
+2025-07-08 18:31:54,453 - SSVEP_Time_Freq_Analysis - INFO - 选择的通道: PO5，索引: 1
+2025-07-08 18:31:54,453 - SSVEP_Time_Freq_Analysis - INFO - PSD 频率（前 10 个）: [0.    0.256 0.512 0.768 1.024 1.28  1.536 1.792 2.048 2.304]
+2025-07-08 18:31:54,453 - SSVEP_Time_Freq_Analysis - INFO - PSD 值（前 10 个）: [3.15544362e-34 2.55473258e-03 1.33549262e-02 3.83805312e-01
+ 4.78710975e+00 7.70285971e-01 6.93536019e-01 1.86278635e-01
+ 8.03308567e-01 4.76078445e-01]
+2025-07-08 18:31:54,453 - SSVEP_Time_Freq_Analysis - INFO - 8.0 Hz 的 SNR: 0.03
+2025-07-08 18:31:59,712 - SSVEP_Time_Freq_Analysis - INFO - PSD 计算和绘图完成
+2025-07-08 18:31:59,712 - SSVEP_Time_Freq_Analysis - INFO - 开始时频域分析
+2025-07-08 18:32:01,676 - SSVEP_Time_Freq_Analysis - INFO - STFT 分析完成
+2025-07-08 18:32:03,815 - SSVEP_Time_Freq_Analysis - INFO - 莫雷小波变换完成
+2025-07-08 18:32:05,177 - SSVEP_Time_Freq_Analysis - INFO - 希尔伯特变换完成
+2025-07-08 18:32:20,337 - SSVEP_Time_Freq_Analysis - INFO - 数据加载成功
+2025-07-08 18:32:20,337 - SSVEP_Time_Freq_Analysis - INFO - 开始频域分析，事件: 8.0，通道: PO5
+2025-07-08 18:32:20,348 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 形状: (720, 9, 1000)
+2025-07-08 18:32:20,353 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 是否包含 NaN: False
+2025-07-08 18:32:20,390 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 均值: 1.77e-02，标准差: 6.34e+00
+2025-07-08 18:32:27,332 - SSVEP_Time_Freq_Analysis - INFO - 筛选后 X 形状，事件 8.0: (12, 9, 1000)
+2025-07-08 18:32:27,333 - SSVEP_Time_Freq_Analysis - INFO - 均值数据形状: (9, 1000)
+2025-07-08 18:32:27,333 - SSVEP_Time_Freq_Analysis - INFO - 均值数据是否包含 NaN: False
+2025-07-08 18:32:27,333 - SSVEP_Time_Freq_Analysis - INFO - 均值数据均值: -2.31e-03，标准差: 2.43e+00
+2025-07-08 18:32:27,333 - SSVEP_Time_Freq_Analysis - INFO - 选择的通道: PO5，索引: 1
+2025-07-08 18:32:27,334 - SSVEP_Time_Freq_Analysis - INFO - PSD 频率（前 10 个）: [0.    0.256 0.512 0.768 1.024 1.28  1.536 1.792 2.048 2.304]
+2025-07-08 18:32:27,334 - SSVEP_Time_Freq_Analysis - INFO - PSD 值（前 10 个）: [3.15544362e-34 2.55473258e-03 1.33549262e-02 3.83805312e-01
+ 4.78710975e+00 7.70285971e-01 6.93536019e-01 1.86278635e-01
+ 8.03308567e-01 4.76078445e-01]
+2025-07-08 18:32:27,334 - SSVEP_Time_Freq_Analysis - INFO - 8.0 Hz 的 SNR: 0.03
+2025-07-08 18:32:54,419 - SSVEP_Time_Freq_Analysis - INFO - PSD 计算和绘图完成
+2025-07-08 18:32:54,419 - SSVEP_Time_Freq_Analysis - INFO - 开始时频域分析
+2025-07-08 18:33:01,528 - SSVEP_Time_Freq_Analysis - INFO - STFT 分析完成
+2025-07-08 18:33:08,522 - SSVEP_Time_Freq_Analysis - INFO - 莫雷小波变换完成
+2025-07-08 18:34:08,625 - SSVEP_Time_Freq_Analysis - INFO - 希尔伯特变换完成
+2025-07-08 18:51:34,247 - offline_accuracy - INFO - X 形状: (2400, 60, 1250), y 形状: (2400,)
+2025-07-08 18:51:34,248 - offline_accuracy - INFO - offline_validation开始运行
+2025-07-08 18:51:34,777 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:51:34,777 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 18:53:39,334 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:53:39,374 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:53:39,491 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:53:40,627 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:53:40,629 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:53:46,742 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:53:46,743 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 18:55:42,322 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:55:42,377 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:55:42,491 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:55:43,570 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:55:43,571 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:55:49,275 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:55:49,276 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 18:58:40,706 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 18:58:40,749 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 18:58:40,888 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 18:58:41,963 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 18:58:41,964 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 18:58:48,242 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 18:58:48,242 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:00:47,052 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:00:47,104 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:00:47,226 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:00:48,298 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:00:48,300 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:00:54,347 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:00:54,348 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:06:46,870 - offline_accuracy - INFO - X 形状: (720, 60, 1250), y 形状: (720,)
+2025-07-08 19:06:46,870 - offline_accuracy - INFO - offline_validation开始运行
+2025-07-08 19:06:47,020 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:06:47,020 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-08 19:07:26,085 - offline_accuracy - INFO - X 形状: (960, 60, 1250), y 形状: (960,)
+2025-07-08 19:07:26,095 - offline_accuracy - INFO - offline_validation开始运行
+2025-07-08 19:07:26,296 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:07:26,296 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:08:01,072 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:08:01,122 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:08:01,222 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:08:02,226 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:08:02,236 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:08:03,478 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:08:03,478 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:08:36,091 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:08:36,111 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:08:36,151 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:08:37,226 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:08:37,226 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:08:37,626 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:08:37,626 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:09:09,112 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:09:09,142 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:09:09,172 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:09:10,165 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:09:10,165 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:09:10,416 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:09:10,416 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:09:41,726 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:09:41,742 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:09:41,784 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:09:42,781 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:09:42,782 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:09:43,014 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:09:43,014 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:10:13,778 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:10:13,799 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:10:13,853 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:10:14,862 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:10:14,862 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:10:15,133 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:10:15,133 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:10:47,507 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:10:47,537 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:10:47,557 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:10:48,571 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:10:48,571 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:10:48,812 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:10:48,812 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:11:19,902 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:11:19,928 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:11:19,956 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:11:20,965 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:11:20,966 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:11:21,205 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:11:21,205 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:11:52,309 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:11:52,329 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:11:52,359 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:11:53,344 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:11:53,344 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:11:53,595 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:11:53,595 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:12:26,465 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:12:26,487 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:12:26,543 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:12:28,481 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:12:28,482 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:12:28,977 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:12:28,977 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:13:03,400 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:13:03,417 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:13:03,456 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:13:04,512 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:13:04,513 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:13:04,772 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:13:04,773 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:13:36,011 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:13:36,041 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:13:36,061 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:13:37,105 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:13:37,105 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:13:37,387 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:13:37,387 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:14:08,831 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:14:08,851 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:14:08,891 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:14:09,886 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:14:09,886 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:14:10,137 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:14:10,147 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:14:41,311 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:14:41,331 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:14:41,381 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:14:42,376 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:14:42,376 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:14:42,597 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:14:42,597 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:15:13,785 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:15:13,805 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:15:13,845 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:15:14,850 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:15:14,850 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:15:15,101 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:15:15,101 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:15:46,298 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:15:46,328 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:15:46,348 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:15:47,372 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:15:47,372 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:15:47,602 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:15:47,602 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:16:18,810 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:16:18,830 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:16:18,871 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:16:19,875 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:16:19,875 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:16:20,096 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:16:20,096 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:16:50,783 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:16:50,804 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:16:50,830 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:16:52,010 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:16:52,012 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:16:52,295 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:16:52,296 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:17:23,525 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:17:23,545 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:17:23,576 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:17:24,579 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:17:24,579 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:17:24,831 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:17:24,831 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:17:55,592 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:17:55,612 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:17:55,662 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:17:56,646 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:17:56,646 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:17:56,876 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:17:56,876 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:18:27,774 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:18:27,798 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:18:27,845 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:18:28,857 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:18:28,857 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:18:29,104 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:18:29,104 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:18:59,867 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:18:59,889 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:18:59,918 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:19:00,899 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:19:00,901 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:19:01,154 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:19:01,154 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:19:31,634 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:19:31,656 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:19:31,702 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:19:32,710 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:19:32,710 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:19:32,937 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:19:32,938 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:20:03,593 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:20:03,615 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:20:03,642 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:20:04,645 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:20:04,646 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:20:04,876 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:20:04,876 - offline_accuracy - INFO - 输入 X 形状: (920, 60, 1250)
+2025-07-08 19:20:35,371 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:20:35,402 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:20:35,437 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:20:36,418 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:20:36,419 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:20:36,450 - offline_accuracy - INFO - Current Model accuracy: 0.99
+2025-07-08 19:21:25,652 - offline_accuracy - INFO - X 形状: (2400, 60, 1250), y 形状: (2400,)
+2025-07-08 19:21:25,653 - offline_accuracy - INFO - offline_validation开始运行
+2025-07-08 19:21:26,163 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:21:26,163 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:23:57,822 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:23:57,880 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:23:58,002 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:23:59,063 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:23:59,067 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:24:05,422 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:24:05,422 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:25:57,100 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:25:57,157 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:25:57,267 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:25:58,307 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:25:58,308 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:26:03,432 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:26:03,432 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:27:56,823 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:27:56,876 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:27:56,980 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:27:58,036 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:27:58,038 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:28:03,466 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:28:03,466 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:29:52,948 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:29:52,996 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:29:53,111 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:29:54,179 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:29:54,181 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:30:00,072 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:30:00,072 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:32:16,628 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:32:16,686 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:32:16,812 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:32:17,893 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:32:17,896 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:32:24,139 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:32:24,139 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:36:04,093 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:36:04,140 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:36:04,266 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:36:05,326 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:36:05,329 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:36:11,618 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:36:11,619 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:38:12,450 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:38:12,505 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:38:12,607 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:38:13,665 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:38:13,667 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:38:19,310 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:38:19,310 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:40:14,485 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:40:14,534 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:40:14,639 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:40:15,685 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:40:15,687 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:40:21,079 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:40:21,080 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:42:28,765 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:42:28,816 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:42:28,938 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:42:30,006 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:42:30,008 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:42:35,726 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:42:35,726 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:44:46,721 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:44:46,782 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:44:46,913 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:44:47,957 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:44:47,958 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:44:53,729 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:44:53,729 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:47:07,636 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:47:07,675 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:47:07,786 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:47:08,853 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:47:08,855 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:47:14,359 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:47:14,359 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:49:14,602 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:49:14,639 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:49:14,738 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:49:15,790 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:49:15,791 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:49:20,963 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:49:20,963 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:51:24,020 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:51:24,064 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:51:24,177 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:51:25,246 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:51:25,247 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:51:30,883 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:51:30,883 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:53:40,375 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:53:40,417 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:53:40,517 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:53:41,633 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:53:41,640 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:53:47,235 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:53:47,236 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:56:30,313 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:56:30,357 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:56:30,482 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:56:31,547 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:56:31,549 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:56:37,482 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:56:37,482 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 19:59:02,257 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 19:59:02,299 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 19:59:02,427 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 19:59:03,476 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 19:59:03,477 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 19:59:09,445 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 19:59:09,445 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 20:01:10,050 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 20:01:10,095 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 20:01:10,213 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 20:01:11,258 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 20:01:11,260 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 20:01:17,092 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 20:01:17,092 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-08 20:03:17,131 - offline_accuracy - INFO - train_model结束运行
+2025-07-08 20:03:17,176 - offline_accuracy - INFO - model_predict开始运行
+2025-07-08 20:03:17,291 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-08 20:03:18,372 - offline_accuracy - INFO - model_predict结束运行
+2025-07-08 20:03:18,373 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-08 20:03:23,913 - offline_accuracy - INFO - train_model开始运行
+2025-07-08 20:03:23,913 - offline_accuracy - INFO - 输入 X 形状: (2360, 60, 1250)
+2025-07-09 00:22:01,386 - offline_accuracy - INFO - X 形状: (240, 60, 1250), y 形状: (240,)
+2025-07-09 00:22:01,387 - offline_accuracy - INFO - offline_validation开始运行
+2025-07-09 00:22:01,451 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:22:01,451 - offline_accuracy - INFO - 输入 X 形状: (200, 60, 1250)
+2025-07-09 00:22:08,883 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:22:08,893 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:22:08,926 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:22:10,021 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:22:10,023 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:22:10,089 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:22:10,090 - offline_accuracy - INFO - 输入 X 形状: (200, 60, 1250)
+2025-07-09 00:22:17,249 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:22:17,258 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:22:17,286 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:22:18,307 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:22:18,308 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:22:18,361 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:22:18,361 - offline_accuracy - INFO - 输入 X 形状: (200, 60, 1250)
+2025-07-09 00:22:25,170 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:22:25,181 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:22:25,206 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:22:26,206 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:22:26,207 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:22:26,264 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:22:26,264 - offline_accuracy - INFO - 输入 X 形状: (200, 60, 1250)
+2025-07-09 00:22:33,462 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:22:33,472 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:22:33,500 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:22:34,524 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:22:34,526 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:22:34,581 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:22:34,581 - offline_accuracy - INFO - 输入 X 形状: (200, 60, 1250)
+2025-07-09 00:22:42,140 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:22:42,151 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:22:42,177 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:22:43,193 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:22:43,195 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:22:43,250 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:22:43,250 - offline_accuracy - INFO - 输入 X 形状: (200, 60, 1250)
+2025-07-09 00:22:50,152 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:22:50,162 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:22:50,190 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:22:51,185 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:22:51,187 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:22:51,194 - offline_accuracy - INFO - Current Model accuracy: 0.99
+2025-07-09 00:22:51,194 - offline_accuracy - INFO - Precision: 0.99
+2025-07-09 00:22:51,194 - offline_accuracy - INFO - Recall: 0.99
+2025-07-09 00:22:51,194 - offline_accuracy - INFO - F1 Score: 0.99
+2025-07-09 00:25:12,221 - offline_accuracy - INFO - X 形状: (720, 60, 1250), y 形状: (720,)
+2025-07-09 00:25:12,221 - offline_accuracy - INFO - offline_validation开始运行
+2025-07-09 00:25:12,372 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:25:12,372 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:25:37,301 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:25:37,322 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:25:37,364 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:25:38,366 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:25:38,367 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:25:38,712 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:25:38,712 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:26:01,611 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:26:01,623 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:26:01,652 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:26:02,646 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:26:02,647 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:26:02,845 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:26:02,845 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:26:25,196 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:26:25,208 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:26:25,235 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:26:26,238 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:26:26,239 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:26:26,434 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:26:26,434 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:26:48,714 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:26:48,732 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:26:48,760 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:26:49,759 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:26:49,760 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:26:49,928 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:26:49,928 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:27:12,301 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:27:12,318 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:27:12,348 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:27:13,348 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:27:13,349 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:27:13,522 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:27:13,523 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:27:35,762 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:27:35,786 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:27:35,815 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:27:36,817 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:27:36,818 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:27:37,009 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:27:37,009 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:27:59,237 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:27:59,256 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:27:59,286 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:28:00,277 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:28:00,280 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:28:00,452 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:28:00,452 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:28:22,717 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:28:22,732 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:28:22,761 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:28:23,753 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:28:23,754 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:28:23,922 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:28:23,922 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:28:46,199 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:28:46,217 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:28:46,246 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:28:47,238 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:28:47,240 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:28:47,404 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:28:47,404 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:29:09,686 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:29:09,705 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:29:09,734 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:29:10,742 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:29:10,744 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:29:10,913 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:29:10,913 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:29:33,222 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:29:33,239 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:29:33,269 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:29:34,282 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:29:34,283 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:29:34,457 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:29:34,457 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:29:56,919 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:29:56,937 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:29:56,967 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:29:58,038 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:29:58,039 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:29:58,234 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:29:58,234 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:30:21,067 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:30:21,080 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:30:21,108 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:30:22,101 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:30:22,103 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:30:22,270 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:30:22,270 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:30:44,589 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:30:44,600 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:30:44,629 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:30:45,640 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:30:45,641 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:30:45,835 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:30:45,835 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:31:08,009 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:31:08,027 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:31:08,055 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:31:09,057 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:31:09,058 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:31:09,255 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:31:09,255 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:31:31,573 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:31:31,591 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:31:31,621 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:31:32,632 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:31:32,633 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:31:32,837 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:31:32,837 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:31:55,054 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:31:55,075 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:31:55,104 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:31:56,110 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:31:56,112 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:31:56,307 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:31:56,307 - offline_accuracy - INFO - 输入 X 形状: (680, 60, 1250)
+2025-07-09 00:32:18,487 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:32:18,508 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:32:18,539 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:32:19,542 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:32:19,543 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:32:19,561 - offline_accuracy - INFO - Current Model accuracy: 0.99
+2025-07-09 00:32:19,561 - offline_accuracy - INFO - Precision: 0.99
+2025-07-09 00:32:19,561 - offline_accuracy - INFO - Recall: 0.99
+2025-07-09 00:32:19,561 - offline_accuracy - INFO - F1 Score: 0.99
+2025-07-09 00:34:14,595 - offline_accuracy - INFO - X 形状: (1200, 60, 1250), y 形状: (1200,)
+2025-07-09 00:34:14,595 - offline_accuracy - INFO - offline_validation开始运行
+2025-07-09 00:34:14,846 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:34:14,846 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:34:58,300 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:34:58,323 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:34:58,434 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:34:59,507 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:34:59,509 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:35:01,936 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:35:01,936 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:35:41,829 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:35:41,862 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:35:41,896 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:35:42,939 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:35:42,940 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:35:43,406 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:35:43,406 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:36:23,243 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:36:23,287 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:36:23,320 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:36:24,340 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:36:24,341 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:36:24,809 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:36:24,810 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:37:03,374 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:37:03,394 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:37:03,422 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:37:04,413 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:37:04,415 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:37:04,736 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:37:04,736 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:37:43,103 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:37:43,120 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:37:43,149 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:37:44,148 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:37:44,149 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:37:44,465 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:37:44,465 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:38:22,703 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:38:22,729 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:38:22,783 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:38:23,795 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:38:23,797 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:38:24,055 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:38:24,055 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:39:02,406 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:39:02,431 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:39:02,458 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:39:03,470 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:39:03,471 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:39:03,769 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:39:03,769 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:39:42,514 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:39:42,533 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:39:42,562 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:39:43,558 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:39:43,559 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:39:43,888 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:39:43,888 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:40:22,673 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:40:22,692 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:40:22,721 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:40:23,712 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:40:23,714 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:40:24,061 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:40:24,061 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:41:03,145 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:41:03,165 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:41:03,195 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:41:04,179 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:41:04,180 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:41:04,485 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:41:04,485 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:41:42,827 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:41:42,845 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:41:42,874 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:41:43,904 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:41:43,905 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:41:44,216 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:41:44,216 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:42:22,760 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:42:22,779 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:42:22,808 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:42:23,802 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:42:23,804 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:42:24,138 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:42:24,139 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:43:02,366 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:43:02,386 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:43:02,417 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:43:03,425 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:43:03,427 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:43:03,757 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:43:03,757 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:43:42,425 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:43:42,445 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:43:42,475 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:43:43,485 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:43:43,485 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:43:43,797 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:43:43,797 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:44:22,339 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:44:22,359 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:44:22,390 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:44:23,391 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:44:23,392 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:44:23,710 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:44:23,710 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:45:02,328 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:45:02,352 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:45:02,384 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:45:03,407 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:45:03,408 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:45:03,720 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:45:03,720 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:45:42,481 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:45:42,499 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:45:42,531 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:45:43,535 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:45:43,536 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:45:43,847 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:45:43,847 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:46:22,431 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:46:22,450 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:46:22,479 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:46:23,500 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:46:23,501 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:46:23,852 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:46:23,853 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:47:03,434 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:47:03,453 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:47:03,483 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:47:04,478 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:47:04,479 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:47:04,798 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:47:04,798 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:47:44,179 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:47:44,198 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:47:44,226 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:47:45,230 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:47:45,231 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:47:45,539 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:47:45,539 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:48:23,759 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:48:23,777 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:48:23,807 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:48:24,804 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:48:24,807 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:48:25,137 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:48:25,137 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:49:03,665 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:49:03,684 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:49:03,713 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:49:04,707 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:49:04,708 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:49:05,040 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:49:05,041 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:49:43,509 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:49:43,528 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:49:43,558 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:49:44,562 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:49:44,563 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:49:44,872 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:49:44,872 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:50:23,632 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:50:23,650 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:50:23,680 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:50:24,687 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:50:24,689 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:50:24,999 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:50:24,999 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:51:03,538 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:51:03,557 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:51:03,586 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:51:04,571 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:51:04,572 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:51:04,878 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:51:04,878 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:51:43,392 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:51:43,411 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:51:43,441 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:51:44,464 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:51:44,465 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:51:44,782 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:51:44,782 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:52:23,329 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:52:23,347 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:52:23,376 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:52:24,387 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:52:24,388 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:52:24,693 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:52:24,693 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:53:03,935 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:53:03,955 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:53:03,983 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:53:04,972 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:53:04,973 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:53:05,297 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:53:05,298 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:53:43,753 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:53:43,774 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:53:43,804 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:53:44,838 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:53:44,839 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:53:45,150 - offline_accuracy - INFO - train_model开始运行
+2025-07-09 00:53:45,150 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-09 00:54:24,292 - offline_accuracy - INFO - train_model结束运行
+2025-07-09 00:54:24,312 - offline_accuracy - INFO - model_predict开始运行
+2025-07-09 00:54:24,342 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-09 00:54:25,375 - offline_accuracy - INFO - model_predict结束运行
+2025-07-09 00:54:25,376 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-09 00:54:25,499 - offline_accuracy - INFO - Current Model accuracy: 0.98
+2025-07-09 00:54:25,499 - offline_accuracy - INFO - Precision: 0.98
+2025-07-09 00:54:25,499 - offline_accuracy - INFO - Recall: 0.98
+2025-07-09 00:54:25,499 - offline_accuracy - INFO - F1 Score: 0.98
+2025-07-20 16:43:19,541 - amplifier - INFO - down worker-feedback_worker
+2025-07-21 20:36:16,181 - offline_accuracy - INFO - X 形状: (1200, 60, 1250), y 形状: (1200,)
+2025-07-21 20:36:16,183 - offline_accuracy - INFO - offline_validation开始运行
+2025-07-21 20:36:16,461 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:36:16,462 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-21 20:37:09,519 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:37:09,552 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:37:09,667 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:37:10,734 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:37:10,738 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:37:13,206 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:37:13,207 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-21 20:37:55,705 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:37:55,735 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:37:55,767 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:37:56,809 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:37:56,809 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:37:57,307 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:37:57,307 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-21 20:38:37,071 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:38:37,089 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:38:37,119 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:38:38,129 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:38:38,130 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:38:38,437 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:38:38,437 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-21 20:39:17,610 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:39:17,630 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:39:17,659 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:39:18,674 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:39:18,677 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:39:18,999 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:39:18,999 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-21 20:40:01,871 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:40:01,897 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:40:01,942 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:40:03,014 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:40:03,017 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:40:03,434 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:40:03,434 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-21 20:40:44,035 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:40:44,059 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:40:44,092 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:40:45,091 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:40:45,092 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:40:45,411 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:40:45,411 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-21 20:41:26,312 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:41:26,332 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:41:26,362 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:41:27,372 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:41:27,374 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:41:27,685 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:41:27,685 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-21 20:42:12,084 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:42:12,152 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:42:12,262 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:42:13,312 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:42:13,312 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:42:14,063 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:42:14,064 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-21 20:42:54,650 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:42:54,670 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:42:54,700 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:42:55,716 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:42:55,716 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:42:56,044 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:42:56,044 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-21 20:43:43,420 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:43:43,443 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:43:43,475 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:43:44,561 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:43:44,561 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:43:44,919 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:43:44,919 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-21 20:44:26,341 - offline_accuracy - INFO - X 形状: (240, 60, 1250), y 形状: (240,)
+2025-07-21 20:44:26,341 - offline_accuracy - INFO - offline_validation开始运行
+2025-07-21 20:44:26,391 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:44:26,391 - offline_accuracy - INFO - 输入 X 形状: (200, 60, 1250)
+2025-07-21 20:44:33,617 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:44:33,621 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:44:33,648 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:44:34,681 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:44:34,682 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:44:34,739 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:44:34,739 - offline_accuracy - INFO - 输入 X 形状: (200, 60, 1250)
+2025-07-21 20:44:41,880 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:44:41,887 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:44:41,916 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:44:42,986 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:44:42,988 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:44:43,079 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:44:43,080 - offline_accuracy - INFO - 输入 X 形状: (200, 60, 1250)
+2025-07-21 20:44:50,547 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:44:50,554 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:44:50,580 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:44:51,601 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:44:51,601 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:44:51,656 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:44:51,656 - offline_accuracy - INFO - 输入 X 形状: (200, 60, 1250)
+2025-07-21 20:44:59,061 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:44:59,066 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:44:59,097 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:45:00,243 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:45:00,245 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:45:00,329 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:45:00,330 - offline_accuracy - INFO - 输入 X 形状: (200, 60, 1250)
+2025-07-21 20:45:07,727 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:45:07,734 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:45:07,772 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:45:08,789 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:45:08,793 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:45:08,850 - offline_accuracy - INFO - train_model开始运行
+2025-07-21 20:45:08,850 - offline_accuracy - INFO - 输入 X 形状: (200, 60, 1250)
+2025-07-21 20:45:16,311 - offline_accuracy - INFO - train_model结束运行
+2025-07-21 20:45:16,318 - offline_accuracy - INFO - model_predict开始运行
+2025-07-21 20:45:16,345 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-21 20:45:17,446 - offline_accuracy - INFO - model_predict结束运行
+2025-07-21 20:45:17,447 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-21 20:45:17,453 - offline_accuracy - INFO - Current Model accuracy: 0.99
+2025-07-21 20:45:17,453 - offline_accuracy - INFO - Precision: 0.99
+2025-07-21 20:45:17,453 - offline_accuracy - INFO - Recall: 0.99
+2025-07-21 20:45:17,453 - offline_accuracy - INFO - F1 Score: 0.99
+2025-07-21 20:46:45,762 - SSVEP_Time_Freq_Analysis - INFO - 数据加载成功
+2025-07-21 20:46:45,762 - SSVEP_Time_Freq_Analysis - INFO - 开始频域分析，事件: 8.0，通道: PO5
+2025-07-21 20:46:45,773 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 形状: (720, 9, 1000)
+2025-07-21 20:46:45,777 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 是否包含 NaN: False
+2025-07-21 20:46:45,815 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 均值: 1.77e-02，标准差: 6.34e+00
+2025-07-21 20:46:53,013 - SSVEP_Time_Freq_Analysis - INFO - 筛选后 X 形状，事件 8.0: (12, 9, 1000)
+2025-07-21 20:46:53,016 - SSVEP_Time_Freq_Analysis - INFO - 均值数据形状: (9, 1000)
+2025-07-21 20:46:53,016 - SSVEP_Time_Freq_Analysis - INFO - 均值数据是否包含 NaN: False
+2025-07-21 20:46:53,016 - SSVEP_Time_Freq_Analysis - INFO - 均值数据均值: -2.31e-03，标准差: 2.43e+00
+2025-07-21 20:46:53,016 - SSVEP_Time_Freq_Analysis - INFO - 选择的通道: PO5，索引: 1
+2025-07-21 20:46:53,017 - SSVEP_Time_Freq_Analysis - INFO - PSD 频率（前 10 个）: [0.    0.256 0.512 0.768 1.024 1.28  1.536 1.792 2.048 2.304]
+2025-07-21 20:46:53,017 - SSVEP_Time_Freq_Analysis - INFO - PSD 值（前 10 个）: [3.15544362e-34 2.55473258e-03 1.33549262e-02 3.83805312e-01
+ 4.78710975e+00 7.70285971e-01 6.93536019e-01 1.86278635e-01
+ 8.03308567e-01 4.76078445e-01]
+2025-07-21 20:46:53,017 - SSVEP_Time_Freq_Analysis - INFO - 8.0 Hz 的 SNR: 0.03
+2025-07-21 20:46:55,985 - SSVEP_Time_Freq_Analysis - INFO - PSD 计算和绘图完成
+2025-07-21 20:46:55,986 - SSVEP_Time_Freq_Analysis - INFO - 开始时频域分析
+2025-07-21 20:46:57,263 - SSVEP_Time_Freq_Analysis - INFO - STFT 分析完成
+2025-07-21 20:46:59,330 - SSVEP_Time_Freq_Analysis - INFO - 莫雷小波变换完成
+2025-07-21 20:47:00,483 - SSVEP_Time_Freq_Analysis - INFO - 希尔伯特变换完成
+2025-07-23 22:38:26,150 - offline_accuracy - INFO - X 形状: (1200, 60, 1250), y 形状: (1200,)
+2025-07-23 22:38:26,150 - offline_accuracy - INFO - offline_validation开始运行
+2025-07-23 22:38:26,416 - offline_accuracy - INFO - train_model开始运行
+2025-07-23 22:38:26,416 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-23 22:39:17,860 - offline_accuracy - INFO - train_model结束运行
+2025-07-23 22:39:17,911 - offline_accuracy - INFO - model_predict开始运行
+2025-07-23 22:39:18,020 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-23 22:39:19,099 - offline_accuracy - INFO - model_predict结束运行
+2025-07-23 22:39:19,102 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-23 22:39:21,869 - offline_accuracy - INFO - train_model开始运行
+2025-07-23 22:39:21,869 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-23 22:40:02,478 - offline_accuracy - INFO - train_model结束运行
+2025-07-23 22:40:02,500 - offline_accuracy - INFO - model_predict开始运行
+2025-07-23 22:40:02,529 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-23 22:40:03,573 - offline_accuracy - INFO - model_predict结束运行
+2025-07-23 22:40:03,574 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-23 22:40:03,912 - offline_accuracy - INFO - train_model开始运行
+2025-07-23 22:40:03,912 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-23 22:40:44,119 - offline_accuracy - INFO - train_model结束运行
+2025-07-23 22:40:44,139 - offline_accuracy - INFO - model_predict开始运行
+2025-07-23 22:40:44,168 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-23 22:40:45,215 - offline_accuracy - INFO - model_predict结束运行
+2025-07-23 22:40:45,216 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-23 22:40:45,550 - offline_accuracy - INFO - train_model开始运行
+2025-07-23 22:40:45,550 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-23 22:41:26,175 - offline_accuracy - INFO - train_model结束运行
+2025-07-23 22:41:26,203 - offline_accuracy - INFO - model_predict开始运行
+2025-07-23 22:41:26,234 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-23 22:41:27,328 - offline_accuracy - INFO - model_predict结束运行
+2025-07-23 22:41:27,329 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-23 22:41:27,741 - offline_accuracy - INFO - train_model开始运行
+2025-07-23 22:41:27,742 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-23 22:42:12,205 - offline_accuracy - INFO - train_model结束运行
+2025-07-23 22:42:12,278 - offline_accuracy - INFO - model_predict开始运行
+2025-07-23 22:42:12,331 - offline_accuracy - INFO - X 形状传入 predict: (40, 60, 1250)
+2025-07-23 22:42:13,516 - offline_accuracy - INFO - model_predict结束运行
+2025-07-23 22:42:13,518 - offline_accuracy - INFO - offline_validation结束运行
+2025-07-23 22:42:14,205 - offline_accuracy - INFO - train_model开始运行
+2025-07-23 22:42:14,206 - offline_accuracy - INFO - 输入 X 形状: (1160, 60, 1250)
+2025-07-23 22:43:04,944 - SSVEP_Time_Freq_Analysis - INFO - 数据加载成功
+2025-07-23 22:43:04,944 - SSVEP_Time_Freq_Analysis - INFO - 开始频域分析，事件: 8.0，通道: PO5
+2025-07-23 22:43:05,017 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 形状: (2400, 9, 1000)
+2025-07-23 22:43:05,064 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 是否包含 NaN: False
+2025-07-23 22:43:05,252 - SSVEP_Time_Freq_Analysis - INFO - 输入 X 均值: 3.13e-02，标准差: 6.23e+00
+2025-07-23 22:43:12,729 - SSVEP_Time_Freq_Analysis - INFO - 筛选后 X 形状，事件 8.0: (12, 9, 1000)
+2025-07-23 22:43:12,732 - SSVEP_Time_Freq_Analysis - INFO - 均值数据形状: (9, 1000)
+2025-07-23 22:43:12,732 - SSVEP_Time_Freq_Analysis - INFO - 均值数据是否包含 NaN: False
+2025-07-23 22:43:12,732 - SSVEP_Time_Freq_Analysis - INFO - 均值数据均值: -2.31e-03，标准差: 2.43e+00
+2025-07-23 22:43:12,732 - SSVEP_Time_Freq_Analysis - INFO - 选择的通道: PO5，索引: 1
+2025-07-23 22:43:12,733 - SSVEP_Time_Freq_Analysis - INFO - PSD 频率（前 10 个）: [0.    0.256 0.512 0.768 1.024 1.28  1.536 1.792 2.048 2.304]
+2025-07-23 22:43:12,733 - SSVEP_Time_Freq_Analysis - INFO - PSD 值（前 10 个）: [3.15544362e-34 2.55473258e-03 1.33549262e-02 3.83805312e-01
+ 4.78710975e+00 7.70285971e-01 6.93536019e-01 1.86278635e-01
+ 8.03308567e-01 4.76078445e-01]
+2025-07-23 22:43:12,734 - SSVEP_Time_Freq_Analysis - INFO - 8.0 Hz 的 SNR: 0.03
+2025-07-23 22:43:16,316 - SSVEP_Time_Freq_Analysis - INFO - PSD 计算和绘图完成
+2025-07-23 22:43:16,319 - SSVEP_Time_Freq_Analysis - INFO - 开始时频域分析
