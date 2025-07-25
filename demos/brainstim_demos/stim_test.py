@@ -78,7 +78,7 @@ if __name__ == "__main__":
     port_addr = None  #  0xdefc
     nrep = 2  # block数目
     lsl_source_id = "meta_online_worker"  # None                 # source id
-    online = False  # True                                       # 在线实验的标志
+    online = True  # True                                       # 在线实验的标志
     ex.register_paradigm(
         "进入操控界面",
         paradigm,

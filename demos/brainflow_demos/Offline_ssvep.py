@@ -23,6 +23,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
+
 # 对raw操作,例如滤波
 
 def raw_hook(raw, caches):
@@ -77,7 +78,9 @@ def train_model(X, y, srate=1000):
     filterbank = generate_filterbank(wp, ws, 256)
 
     freqs = np.arange(8, 16, 0.4)
-    Yf = generate_cca_references(freqs, srate=256, T=0.5, n_harmonics=5)
+    # 用get_template_list生成模板信号，替换generate_cca_references
+    # data_len=128对应0.5s@256Hz，multi_times=5，qr=True与原算法一致
+    Yf = get_template_list(frequency_set=freqs, data_len=128, sample_rate=256, set_phase=True, multi_times=5, qr=True)
     model = FBTDCA(filterbank, padding_len=3, n_components=4,
                    filterweights=np.array(filterweights))
     model = model.fit(X, y, Yf=Yf)
@@ -296,12 +299,13 @@ if __name__ == '__main__':
         intervals=stim_interval,
         srate=srate)
     paradigm.register_raw_hook(raw_hook)
-    X, y, meta = paradigm.get_data(
+    X, y, meta = generate_fake_ssvep_data()
+    """X, y, meta = paradigm.get_data(
         dataset,
         subjects=subjects,
         return_concat=True,
         n_jobs=4,
-        verbose=False)
+        verbose=False)"""
     y = label_encoder(y, np.unique(y))
     print("Loding data successfully")
 

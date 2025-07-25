@@ -326,7 +326,7 @@ def time_frequency_feature(X, y, chan_names, srate=250):
 if __name__ == '__main__':
     srate = 1000
     stim_interval = [(0.14, 1.14)]
-    subjects = list(range(1, 4))
+    subjects = list(range(1, 11))
     pick_chs = ['PZ', 'PO5', 'PO3', 'POZ', 'PO4', 'PO6', 'O1', 'OZ', 'O2']
     dataset = Wang2016()
     paradigm = SSVEP(

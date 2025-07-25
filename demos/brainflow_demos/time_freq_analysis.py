@@ -27,8 +27,8 @@ warnings.filterwarnings('ignore')
 
 # 对原始数据应用带通滤波
 def raw_hook(raw, caches):
-    logger.info("应用 4-60 Hz 带通滤波")
-    raw.filter(4, 60, l_trans_bandwidth=2, h_trans_bandwidth=5,
+    logger.info("应用 15-60 Hz 带通滤波")
+    raw.filter(7, 60, l_trans_bandwidth=2, h_trans_bandwidth=5,
                phase='zero-double')  # 调整为 4-60 Hz 保留 8-15.8 Hz
     caches['raw_stage'] = caches.get('raw_stage', -1) + 1
     return raw, caches
@@ -243,12 +243,11 @@ def frequency_feature(X, chan_names, event, SNRchannels, plot_ch, srate=250):
     logger.info(f"{target_freq} Hz 的 SNR: {snr:.2f}")
 
     plt.figure(figsize=(10, 6))
-    plt.plot(f, den, label=f'通道 {SNRchannels}')
+    plt.plot(f, den, label=f'channel {SNRchannels}')
     for freq in [target_freq, target_freq * 2, target_freq * 3]:
         freq_idx = np.argmin(np.abs(f - freq))
-        plt.text(freq, den[freq_idx], f'{den[freq_idx]:.2e}', fontsize=15, ha='center')
-    plt.title(f'{SNRchannels} 的 PSD (事件: {event} Hz)')
-    plt.xlabel('频率 [Hz]')
+    plt.title(f'{SNRchannels}   PSD (event: {event} Hz)')
+    plt.xlabel('frequency [Hz]')
     plt.ylabel('PSD [V^2/Hz]')
     plt.xlim([0, 60])
     plt.ylim([0, max(np.max(den) * 1.2, 1e-6)])
@@ -276,9 +275,9 @@ def time_frequency_feature(X, y, chan_names, srate=250):
     Zxx_Pz = Zxx[-4, :, :]
     plt.pcolormesh(t, f, np.abs(Zxx_Pz))
     plt.ylim(0, 25)
-    plt.title('STFT 幅度')
-    plt.ylabel('频率 [Hz]')
-    plt.xlabel('时间 [秒]')
+    plt.title('STFT amplitude')
+    plt.ylabel('frequency [Hz]')
+    plt.xlabel('time [second]')
     plt.colorbar()
     plt.show()
     logger.info("STFT 分析完成")
@@ -296,13 +295,13 @@ def time_frequency_feature(X, y, chan_names, srate=250):
     t_idx = np.array(np.where((t_index <= t_lim[1]) & (t_index >= t_lim[0])))[0]
     PP = P[0, f_idx, :]
     plt.pcolor(t_index[t_idx], f[f_idx], PP[:, t_idx])
-    plt.xlabel('时间 [秒]')
-    plt.ylabel('频率 [Hz]')
+    plt.xlabel('time [second]')
+    plt.ylabel('frequency [Hz]')
     plt.xlim(t_lim)
     plt.ylim(f_lim)
     plt.plot([0, 0], [0, fs / 2], 'w--')
-    plt.title('尺度图 (ω = {}, σ = {})'.format(omega, sigma))
-    plt.text(t_lim[1] + 0.04, f_lim[1] / 2, '功率 (\muV^2/Hz)', rotation=90,
+    plt.title('scale diagram (ω = {}, σ = {})'.format(omega, sigma))
+    plt.text(t_lim[1] + 0.04, f_lim[1] / 2, 'power (\muV^2/Hz)', rotation=90,
              verticalalignment='center', horizontalalignment='center')
     plt.colorbar()
     plt.show()
@@ -313,12 +312,12 @@ def time_frequency_feature(X, y, chan_names, srate=250):
     N1 = tarray.shape[0]
     analytic_signal, realEnv, imagEnv, angle, envModu = Feature_R.fun_hilbert(tarray)
     time = np.linspace(0, N1 / fs, num=N1, endpoint=False)
-    plt.plot(time, realEnv, "k", marker='o', markerfacecolor='white', label="实部")
-    plt.plot(time, imagEnv, "b", label="虚部")
-    plt.plot(time, angle, "c", linestyle='-', label="相位")
-    plt.plot(time, analytic_signal, "grey", label="信号")
-    plt.ylabel('相位或幅度')
-    plt.xlabel('时间 [秒]')
+    plt.plot(time, realEnv, "k", marker='o', markerfacecolor='white', label="real part")
+    plt.plot(time, imagEnv, "b", label="imaginary part")
+    plt.plot(time, angle, "c", linestyle='-', label="phase")
+    plt.plot(time, analytic_signal, "grey", label="signal")
+    plt.ylabel('phase or amplitude')
+    plt.xlabel('time [second]')
     plt.legend()
     plt.show()
     logger.info("希尔伯特变换完成")

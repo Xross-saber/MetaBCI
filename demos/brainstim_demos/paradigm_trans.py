@@ -304,25 +304,12 @@ class KeyboardInterface(object):
         self.rows = rows
 
     def config_text(
-            self, unit="pix", symbols=["开启\n发射", "攻击\n一次","关闭\n发射",
-                                       "开启\n跟随","关闭\n跟随","开启\n发射",
-                                       "左转\n30度","左行\n50cm","关闭\n避让",
-                                       "前进\n50cm", "旋转", "后退\n50cm",
-                                       "右转\n30度", "右行\n50cm", "打开\n避让",
-                                       "头左转\n30度","攻击\n一次","头右转\n30度",
-                                       "抬头", "低头", "待机",
-                                       "开启\n跟随","关闭\n跟随","AB",
-                                       "AB","AB","左转\n30度",
-                                       "向右","关闭\n避让","AB",
-                                       "AB","前进\n50cm","旋转",
-                                       "后退\n50cm","AB","AB",
-                                       "右转\n30度","向左","打开\n避让",
-                                       "AB","抬头","头左转\n30度",
-                                       "头右转\n30度","低头","AB",
-                                       "开启\n发射", "攻击\n一次", "关闭\n发射",
-                                       "AB", "AB","AB",
-                                       "AB","AB","AB",
-                                       "AB",], symbol_height=0, tex_color=[1, 1, 1], text_offset=[0, 0]
+            self, unit="pix",
+            # symbols=["左转\n30度","左行\n50cm","停止\n旋转","前进\n50cm","旋转","后退\n50cm","右转\n30度","右行\n50cm","平视","抬头","待定","待定","待定","待定","待定","待定","待定","待定","向右","关闭\n避让","AB","AB","前进\n50cm","旋转",
+            #                            "后退\n50cm","AB","AB","右转\n30度","向左","打开\n避让","AB","抬头","头左转\n30度","头右转\n30度","低头","AB","开启\n发射", "攻击\n一次", "关闭\n发射","AB", "AB","AB",
+            #                            "AB","AB","AB","AB",],
+            symbols= ["AB"]*2000,
+            symbol_height=0, tex_color=[1, 1, 1], text_offset=[0, 0]
     ):
         """Sets the text within the stimulus block to support both single characters and strings.
 
@@ -666,6 +653,7 @@ class SSVEP(VisualStim):
                 frames=self.stim_frames,
                 stim_color=stim_color
             ) - 1
+            print(self.stim_colors.shape[1])
             if self.stim_colors.shape[1] != self.n_elements:
                 raise Exception("Please input correct num of stims!")
 
@@ -689,6 +677,16 @@ class SSVEP(VisualStim):
                     texRes=48,
                 )
             )
+
+    def get_stim(self):
+        # 加载刺激帧
+        stim_frames_num = self.stim_time * self.refresh_rate
+        self.stim_set = []
+        for num in range(stim_frames_num):
+            frame_path = os.path.join(os.path.dirname(os.path.dirname(__file__)),'direction_control_demos/code/stim_generate/image_folder',
+                                      '{}.jpg'.format(num))
+            self.stim_set.append(visual.ImageStim(win=self.win, image=frame_path))
+
 
 
 # standard P300 paradigm
@@ -2363,25 +2361,6 @@ class GetPlabel_MyTherad:
     def __init__(self, inlet):
         self.inlet = inlet
         self._exit = threading.Event()
-        self.trig_ctrl = TriggerController(TriggerConfig.EEG_TYPE,
-                                           TriggerConfig.TRIGGER_HANDLE,
-                                           TriggerConfig.TRIGGER_PORT)
-        self.trig_ctrl.open()
-
-        # trial开始trigger
-        self.trial_start_trig = None
-        # 刺激开始输出trigger
-        self.trial_start_trig: int = TriggerConfig.TRIAL_START_TRIGGER
-        # 刺激结束输出trigger
-        self.trial_end_trig: int = TriggerConfig.TRIAL_END_TRIGGER
-        # block启动输出trigger
-        self.block_start_trig: int = TriggerConfig.BLOCK_START_TRIGGER
-        # block结束输出trigger
-        self.block_end_trig: int = TriggerConfig.BLOCK_END_TRIGGER
-        # 数据开始记录trigger
-        self.record_start_trig: int = TriggerConfig.RECORD_START_TRIGGER
-        # 数据停止记录trigger
-        self.record_end_trig: int = TriggerConfig.RECORD_END_TRIGGER
 
     def feedbackThread(self):
         """Start the thread."""
@@ -2498,6 +2477,25 @@ def paradigm(
     fps = VSObject.refresh_rate
     win.recordFrameIntervals = True
 
+    trig_ctrl = TriggerController(TriggerConfig.EEG_TYPE,
+                                       TriggerConfig.TRIGGER_HANDLE,
+                                       TriggerConfig.TRIGGER_PORT)
+    trig_ctrl.open()
+
+    # trial开始trigger
+    trial_start_trig = None
+    # 刺激开始输出trigger
+    trial_start_trig: int = TriggerConfig.TRIAL_START_TRIGGER
+    # 刺激结束输出trigger
+    trial_end_trig: int = TriggerConfig.TRIAL_END_TRIGGER
+    # block启动输出trigger
+    block_start_trig: int = TriggerConfig.BLOCK_START_TRIGGER
+    # block结束输出trigger
+    block_end_trig: int = TriggerConfig.BLOCK_END_TRIGGER
+    # 数据开始记录trigger
+    record_start_trig: int = TriggerConfig.RECORD_START_TRIGGER
+    # 数据停止记录trigger
+    record_end_trig: int = TriggerConfig.RECORD_END_TRIGGER
 
     if not _check_array_like(bg_color, 3):
         raise ValueError("bg_color should be 3 elements array-like object.")
@@ -2560,6 +2558,7 @@ def paradigm(
         # episode 2: begin to flash
         if port:
             port.setData(0)
+        # trig_ctrl.send(250)
         for trial in trials:
             # quit demo
             keys = event.getKeys(["q"])
@@ -2573,9 +2572,7 @@ def paradigm(
             VSObject.index_stimuli.setPos(position)
 
             # phase I: speller & index (eye shifting)
-        #def run(self):
-            #self.trig_ctrl.send(self.trial_start_trig)
-
+            trig_ctrl.send(trial_start_trig)
 
             iframe = 0
             while iframe < int(fps * index_time):
@@ -2587,6 +2584,7 @@ def paradigm(
                 VSObject.index_stimuli.draw()
                 iframe += 1
                 win.flip()
+            trig_ctrl.send(241)
 
             # phase II: rest state
             if rest_time != 0:
@@ -2608,7 +2606,8 @@ def paradigm(
                     VSObject.win.callOnFlip(port.setData, id + 1)
                 if sf == port_frame and port:
                     port.setData(0)
-                VSObject.flash_stimuli[sf].draw()
+                #VSObject.flash_stimuli[sf].draw()
+                VSObject.stim_set[sf].draw()
                 win.flip()
 
             # phase IV: respond

@@ -10,7 +10,6 @@ import time
 from abc import abstractmethod
 from collections import deque
 from typing import List, Optional, Tuple, Dict, Any
-
 import numpy as np
 import pylsl
 import queue

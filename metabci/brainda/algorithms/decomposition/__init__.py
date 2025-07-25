@@ -1,7 +1,7 @@
 from .base import *  # noqa: F403
 from .csp import CSP, MultiCSP, FBCSP, FBMultiCSP, SPoC
 from .sscor import SSCOR, FBSSCOR
-from .cca import (
+'''from .cca import (
     FilterBankSSVEP,
     SCCA,
     FBSCCA,
@@ -21,7 +21,7 @@ from .cca import (
     FBTRCA,
     TRCAR,
     FBTRCAR,
-)
+)'''
 from .SKLDA import SKLDA
 from .STDA import STDA
 from .dsp import DSP, FBDSP, DCPM

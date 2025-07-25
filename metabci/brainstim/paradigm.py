@@ -16,7 +16,8 @@ from copy import copy
 import random
 from scipy import signal
 from PIL import Image
-
+from trigger_config import TriggerConfig
+from trigger.TriggerController import TriggerController
 
 # prefunctions
 
@@ -304,9 +305,9 @@ class KeyboardInterface(object):
     def config_text(
             self, unit="pix", symbols=["AB","AB","AB","AB","AB",
                                        "AB","开启\n跟随","关闭\n跟随","AB","AB",
-                                       "AB","左转\n30度","左行\n50cm","关闭\n避让","AB",
+                                       "AB","左转\n30度","左行\n50cm","停止\n旋转","AB",
                                        "AB","前进\n50cm","旋转","后退\n50cm","AB",
-                                       "AB","右转\n30度","右行\n50cm","打开\n避让","AB",
+                                       "AB","右转\n30度","右行\n50cm","平视","AB",
                                        "抬头","头左转\n30度","头右转\n30度","低头","AB",
                                        "开启\n发射", "攻击\n一次", "关闭\n发射", "AB", "AB",
                                        "AB","AB","AB","AB","AB",], symbol_height=0, tex_color=[1, 1, 1], text_offset=[0, 0]
@@ -2462,6 +2463,27 @@ def paradigm(
     fps = VSObject.refresh_rate
     win.recordFrameIntervals = True
 
+    trig_ctrl = TriggerController(TriggerConfig.EEG_TYPE,
+                                       TriggerConfig.TRIGGER_HANDLE,
+                                       TriggerConfig.TRIGGER_PORT)
+    trig_ctrl.open()
+
+    # trial开始trigger
+    trial_start_trig = None
+    # 刺激开始输出trigger
+    trial_start_trig: int = TriggerConfig.TRIAL_START_TRIGGER
+    # 刺激结束输出trigger
+    trial_end_trig: int = TriggerConfig.TRIAL_END_TRIGGER
+    # block启动输出trigger
+    block_start_trig: int = TriggerConfig.BLOCK_START_TRIGGER
+    # block结束输出trigger
+    block_end_trig: int = TriggerConfig.BLOCK_END_TRIGGER
+    # 数据开始记录trigger
+    record_start_trig: int = TriggerConfig.RECORD_START_TRIGGER
+    # 数据停止记录trigger
+    record_end_trig: int = TriggerConfig.RECORD_END_TRIGGER
+
+
     if not _check_array_like(bg_color, 3):
         raise ValueError("bg_color should be 3 elements array-like object.")
     win.color = bg_color
@@ -2536,6 +2558,7 @@ def paradigm(
             VSObject.index_stimuli.setPos(position)
 
             # phase I: speller & index (eye shifting)
+            trig_ctrl.send(trial_start_trig)
             iframe = 0
             while iframe < int(fps * index_time):
                 if online:
@@ -2546,6 +2569,7 @@ def paradigm(
                 VSObject.index_stimuli.draw()
                 iframe += 1
                 win.flip()
+            trig_ctrl.send(241)
 
             # phase II: rest state
             if rest_time != 0:

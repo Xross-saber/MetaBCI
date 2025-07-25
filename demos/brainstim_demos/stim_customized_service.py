@@ -94,6 +94,7 @@ if __name__ == "__main__":
         freqs=freqs,
         phases=phases,
     )
+
     basic_ssvep.config_index()
     basic_ssvep.config_response()
 

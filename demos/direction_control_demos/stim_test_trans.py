@@ -14,9 +14,10 @@ if __name__ == "__main__":
         verbose=False,
     )
     mon.setSizePix([1920, 1080])  # 显示器的分辨率
+    # mon.setSizePix([1280, 720])  # 显示器的分辨率
     mon.save()
     bg_color_warm = np.array([-1, -1, -1])
-    win_size = np.array([1440, 960])
+    win_size = np.array([1280, 720])
     # esc/q退出开始选择界面
     ex = Experiment(
         monitor=mon,
@@ -35,13 +36,13 @@ if __name__ == "__main__":
     """
     SSVEP
     """
-    n_elements, rows, columns = 18, 3, 6  # n_elements 指令数量;  rows 行;  columns 列
-    stim_length, stim_width = 100, 100  # ssvep单指令的尺寸
+    n_elements, rows, columns = 400 , 20, 20  # n_elements 指令数量;  rows 行;  columns 列
+    stim_length, stim_width = 10, 10  # ssvep单指令的尺寸
     stim_color, tex_color = [1, 1, 1], [1, 1, 1]  # 指令的颜色，文字的颜色
-    fps = 240  # 屏幕刷新率
-    stim_time = 2  # 刺激时长
+    fps = 60  # 屏幕刷新率
+    stim_time = 4  # 刺激时长
     stim_opacities = 1  # 刺激对比度
-    freqs = np.arange(8, 11.6, 0.2)  # 指令的频率
+    freqs = np.arange(8, (8 + n_elements * 0.01), 0.01)  # 指令的频率
     phases = np.array([i * 0.35 % 2 for i in range(n_elements)])  # 指令的相位
 
     basic_ssvep = SSVEP(win=win)
@@ -63,12 +64,13 @@ if __name__ == "__main__":
         freqs=freqs,
         phases=phases,
     )
+    basic_ssvep.get_stim()
     basic_ssvep.config_index()
     basic_ssvep.config_response()
 
     bg_color = np.array([-1, -1, -1])  # 背景颜色
     display_time = 1  # 范式开始1s的warm时长
-    index_time = 1  # 提示时长，转移视线
+    index_time = 0  # 提示时长，转移视线
     rest_time = 0.5  # 提示后的休息时长
     response_time = 1  # 在线反馈
     port_addr = "COM8"  #  0xdefc                                  # 采集主机端口
