@@ -8,6 +8,7 @@ Tsinghua BCI Lab.
 """
 import os
 import tarfile
+import tempfile
 from typing import Union, Optional, Dict, List, cast
 from pathlib import Path
 
@@ -153,12 +154,47 @@ class Wang2016(BaseDataset):
             update_path=update_path,
         )
 
-        subject_file = file_dest[:-3]
-        if not os.path.exists(subject_file):
-            # decompression the data
-            with py7zr.SevenZipFile(file_dest, "r") as archive:
-                archive.extractall(path=Path(file_dest).parent)
-        dests = [[subject_file]]
+        subject_file = Path(file_dest[:-3])
+        with py7zr.SevenZipFile(file_dest, "r") as archive:
+            members = [
+                member for member in archive.list()
+                if Path(member.filename).name == subject_file.name
+            ]
+
+        if not members:
+            raise RuntimeError(
+                f"Archive {file_dest} does not contain {subject_file.name}")
+
+        expected_size = members[0].uncompressed
+        is_complete = (
+            subject_file.is_file()
+            and subject_file.stat().st_size == expected_size
+        )
+        if not is_complete:
+            # Extract to a temporary directory first. If a worker is interrupted,
+            # an incomplete file will never be mistaken for a valid dataset file.
+            with tempfile.TemporaryDirectory(
+                dir=subject_file.parent, prefix=f".{subject_file.stem}-"
+            ) as temp_dir:
+                with py7zr.SevenZipFile(file_dest, "r") as archive:
+                    archive.extractall(path=temp_dir)
+
+                extracted_files = list(
+                    Path(temp_dir).rglob(subject_file.name))
+                if len(extracted_files) != 1:
+                    raise RuntimeError(
+                        f"Could not locate {subject_file.name} after extracting "
+                        f"{file_dest}"
+                    )
+                extracted_file = extracted_files[0]
+                if extracted_file.stat().st_size != expected_size:
+                    raise OSError(
+                        f"Incomplete extraction of {subject_file.name}: expected "
+                        f"{expected_size} bytes, got {extracted_file.stat().st_size}"
+                    )
+                os.replace(extracted_file, subject_file)
+
+        dests = [[str(subject_file)]]
         return dests
 
     def _get_single_subject_data(

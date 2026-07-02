@@ -1,0 +1,13 @@
+{
+  "port": "COM4",
+  "state": "occupied",
+  "transport": "udp",
+  "host": "127.0.0.1",
+  "trigger_port": 8713,
+  "pid": 2196,
+  "updated_at": 1783004106.8069985,
+  "trial_state": "buffered",
+  "trial": 5,
+  "command": 4,
+  "samples": 2000
+}

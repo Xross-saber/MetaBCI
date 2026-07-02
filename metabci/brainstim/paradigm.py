@@ -280,9 +280,17 @@ class KeyboardInterface(object):
                     2) or (first_pos[1] < stim_width / 2):
                 raise Exception(
                     "Too much blocks or too big the stimulus region!")
-            for i in range(columns):
-                for j in range(rows):
-                    stim_pos[i * rows + j] = first_pos + [i, j] * first_pos * 2
+            # Row-major order: fill each row from left to right before moving
+            # to the next row. This keeps labels, trigger IDs and positions in
+            # the same order as the row-major configuration lists.
+            for row in range(rows):
+                for column in range(columns):
+                    index = row * columns + column
+                    if index >= self.n_elements:
+                        break
+                    stim_pos[index] = (
+                        first_pos + [column, row] * first_pos * 2
+                    )
             # note that those coordinates are still not the real ones that
             # need to be set on the screen
             stim_pos -= self.win_size / 2  # from Quadrant 1st to 3rd
