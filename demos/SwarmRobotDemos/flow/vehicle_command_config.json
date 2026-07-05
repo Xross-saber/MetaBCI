@@ -1,0 +1,38 @@
+{
+    "serial": {
+        "port": "COM3",
+        "baudrate": 115200,
+        "timeout": 0.1,
+        "startup_delay": 2.0,
+        "send_gap": 0.18
+    },
+    "result_poll_interval": 0.05,
+    "max_vehicles_per_group": 7,
+    "command_codes": {
+        "stop": 0,
+        "forward": 1,
+        "backward": 2,
+        "left": 3,
+        "right": 4,
+        "speed_mid": 50,
+        "speed_high": 51
+    },
+    "stimulus_commands": {
+        "L1": "left",
+        "↑": "forward",
+        "R1": "right",
+        "←": "left",
+        "→": "right",
+        "L2": "left",
+        "↓": "backward",
+        "R2": "right"
+    },
+    "gear_commands": {
+        "1": "speed_mid",
+        "2": "speed_high"
+    },
+    "special_commands": {
+        "END": "stop_all",
+        "INIT": "initialize_all"
+    }
+}
