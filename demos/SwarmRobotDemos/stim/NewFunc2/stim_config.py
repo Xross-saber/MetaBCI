@@ -40,6 +40,7 @@ def build_config(group_count, cars_per_group, fps=60.0, stim_time=2.0):
         "columns": 5,
         "fps": float(fps),
         "stim_time": float(stim_time),
+        "trigger_mode": "start_stop",
         "车辆组数": group_count,
         "每组车辆数": normalized_counts,
         "界面配置": {

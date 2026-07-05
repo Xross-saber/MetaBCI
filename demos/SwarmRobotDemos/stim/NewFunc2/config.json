@@ -4,6 +4,7 @@
     "columns": 5,
     "fps": 60.0,
     "stim_time": 2.0,
+    "trigger_mode": "start_stop",
     "车辆组数": 4,
     "每组车辆数": {
         "A": 3,

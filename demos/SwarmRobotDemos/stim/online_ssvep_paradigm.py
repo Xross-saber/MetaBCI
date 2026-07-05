@@ -27,10 +27,13 @@ def online_ssvep_paradigm(
     prediction_handler=None,
     prediction_timeout=5.0,
     lsl_connect_timeout=30.0,
+    trigger_mode="label",
 ):
     """运行 SSVEP，并以有超时的方式发送 trigger、接收预测。"""
     if pdim != "ssvep":
         raise ValueError("SwarmRobotDemos 的在线范式仅支持 SSVEP")
+    if trigger_mode not in {"label", "start_stop"}:
+        raise ValueError("trigger_mode只能是'label'或'start_stop'")
 
     win.color = bg_color
     fps = VSObject.refresh_rate
@@ -177,8 +180,13 @@ def online_ssvep_paradigm(
 
         for stimulus_frame in range(VSObject.stim_frames):
             if stimulus_frame == 0 and port:
-                VSObject.win.callOnFlip(send_trigger, target_index + 1)
-            if stimulus_frame == port_frame and port:
+                onset_trigger = 240 if trigger_mode == "start_stop" else target_index + 1
+                VSObject.win.callOnFlip(send_trigger, onset_trigger)
+            if (
+                trigger_mode == "label"
+                and stimulus_frame == port_frame
+                and port
+            ):
                 send_trigger(0)
             VSObject.flash_stimuli[stimulus_frame].draw()
             if getattr(VSObject, "draw_text_during_stimulation", False):
@@ -187,6 +195,13 @@ def online_ssvep_paradigm(
             if online and status_display is not None:
                 status_display.draw_header()
             win.flip()
+
+        # 在第一帧非闪烁画面出现时发送241，精确标记刺激结束。
+        if trigger_mode == "start_stop" and port:
+            VSObject.win.callOnFlip(send_trigger, 241)
+            if inlet is None:
+                draw_target_interface(draw_feedback=True)
+                win.flip()
 
         if inlet is None:
             continue

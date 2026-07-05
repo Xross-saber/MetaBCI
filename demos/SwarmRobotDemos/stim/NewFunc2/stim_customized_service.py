@@ -79,6 +79,8 @@ if __name__ == "__main__":
     columns = int(config["columns"])
     fps = float(config["fps"])
     stim_time = float(config["stim_time"])
+    trigger_mode = str(config.get("trigger_mode", "start_stop"))
+    print("[刺激端][配置] Trigger模式={}".format(trigger_mode), flush=True)
 
     # 物理刺激编码保持固定；DCMM 只改变文字和编号对应的逻辑语义。
     frequencies = 8.0 + 0.2 * np.arange(n_elements)
@@ -159,15 +161,16 @@ if __name__ == "__main__":
         index_time=2,
         rest_time=0.5,
         response_time=1,
-        port_addr="COM12",
+        port_addr="COM5",
         nrep=2,
         pdim="ssvep",
         lsl_source_id="meta_online_worker",
-        online=False,
+        online=True,
         device_type="Neuracle",
         prediction_handler=handle_prediction,
         prediction_timeout=5.0,
         lsl_connect_timeout=30.0,
+        trigger_mode=trigger_mode,
     )
 
     experiment.run()

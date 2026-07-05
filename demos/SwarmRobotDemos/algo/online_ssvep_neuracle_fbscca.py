@@ -5,7 +5,7 @@ SwarmRobotDemos 的在线 SSVEP 算法端。
 本文件默认对应 ``stim/NewFunc2/stim_customized_service.py`` 的在线模式：
 
 1. 从博睿康 Neuracle / Neusen W DataService 接收 EEG 数据；
-2. 根据最后一个 trigger 通道切分单 trial epoch；
+2. 自动兼容1-20标签触发和240开始/241结束两种分段协议；
 3. 使用无需训练数据的 FBSCCA 解码 SSVEP；
 4. 通过 LSL ``source_id=meta_online_worker`` 把预测标签发回刺激端。
 
@@ -26,18 +26,6 @@ from typing import Iterable, List
 import numpy as np
 from pylsl import StreamInfo, StreamOutlet
 from scipy.signal import resample
-
-
-ALGO_DIR = Path(__file__).resolve().parent
-SWARM_DIR = ALGO_DIR.parent
-REPOSITORY_ROOT = SWARM_DIR.parents[1]
-DEFAULT_STIM_CONFIG = SWARM_DIR / "stim" / "NewFunc2" / "config.json"
-RESULT_FILE = ALGO_DIR / "result.txt"
-
-for search_path in (REPOSITORY_ROOT, ALGO_DIR):
-    if str(search_path) not in sys.path:
-        sys.path.insert(0, str(search_path))
-
 from metabci.brainda.algorithms.decomposition import FBSCCA  # noqa: E402
 from metabci.brainda.algorithms.decomposition.base import (  # noqa: E402
     generate_cca_references,
@@ -46,6 +34,23 @@ from metabci.brainda.algorithms.decomposition.base import (  # noqa: E402
 from metabci.brainflow.amplifiers import Marker, Neuracle  # noqa: E402
 from metabci.brainflow.workers import ProcessWorker  # noqa: E402
 
+ALGO_DIR = Path(__file__).resolve().parent
+SWARM_DIR = ALGO_DIR.parent
+REPOSITORY_ROOT = SWARM_DIR.parents[1]
+DEFAULT_STIM_CONFIG = SWARM_DIR / "stim" / "NewFunc2" / "config.json"
+RESULT_FILE = ALGO_DIR / "result.txt"
+START_TRIGGER = 240
+STOP_TRIGGER = 241
+OCCIPITAL_CHANNEL_INDICES = (50, 51, 52, 53, 54, 56, 57, 58)
+# 根据用户提供的通道表，编号50-59依次覆盖POz至O2；这里只选指定8导。
+OCCIPITAL_CHANNEL_NAMES = ("POz", "PO3", "PO4", "PO5", "PO6", "PO8", "O1", "Oz")
+
+for search_path in (REPOSITORY_ROOT, ALGO_DIR):
+    if str(search_path) not in sys.path:
+        sys.path.insert(0, str(search_path))
+
+
+
 
 def trace(stage: str, message: str) -> None:
     """输出便于联调检索的实时流程日志。"""
@@ -53,40 +58,64 @@ def trace(stage: str, message: str) -> None:
 
 
 class LoggingNeuracle(Neuracle):
-    """按秒汇总博睿康 TCP 数据，避免每个数据包都刷屏。"""
+    """带TCP分片缓存和Trigger诊断的博睿康接收器。
 
-    def __init__(self, *args, **kwargs) -> None:
+    ``socket.recv`` 不保证一次返回完整数据帧。原Neuracle实现会直接丢弃不足
+    一个通道帧的尾部字节，持续运行后可能造成通道错位。本类保留尾部字节，
+    等待下次数据后再按 ``num_chans * 4`` 字节完整解码。
+    """
+
+    def __init__(self, *args, valid_events=None, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.chunk_count = 0
         self.sample_count = 0
         self.last_report_time = 0.0
+        self.valid_events = (
+            {int(event) for event in valid_events} if valid_events is not None else set()
+        )
+        self._byte_buffer = bytearray()
 
     def recv(self):
-        samples = super().recv()
-        if not samples:
-            return samples
+        try:
+            raw_data = self.tcp_link.recv(self.pkg_size)
+        except Exception as exc:
+            trace("数据", "博睿康TCP接收失败：{}: {}".format(type(exc).__name__, exc))
+            return []
+        if not raw_data:
+            trace("数据", "博睿康TCP连接已关闭")
+            return []
+
+        self._byte_buffer.extend(raw_data)
+        frame_bytes = 4 * int(self.num_chans)
+        complete_bytes = len(self._byte_buffer) // frame_bytes * frame_bytes
+        if complete_bytes == 0:
+            return []
+
+        payload = bytes(self._byte_buffer[:complete_bytes])
+        del self._byte_buffer[:complete_bytes]
+        data = np.frombuffer(payload, dtype="<f4").reshape(-1, self.num_chans)
+        samples = data.tolist()
 
         self.chunk_count += 1
         self.sample_count += len(samples)
         current_time = monotonic()
         if self.chunk_count == 1 or current_time - self.last_report_time >= 1.0:
-            nonzero_triggers = sorted(
-                {
-                    int(round(sample[-1]))
-                    for sample in samples
-                    if int(round(sample[-1])) != 0
-                }
+            trigger_channel = np.rint(data[:, -1]).astype(np.int64)
+            valid_triggers = sorted(
+                set(trigger_channel).intersection(self.valid_events)
             )
-            trigger_text = nonzero_triggers if nonzero_triggers else "none"
             trace(
                 "数据",
                 "收到TCP数据块：序号={}，本次数={}，通道数={}，累计采样数={}，"
-                "非零Trigger={}".format(
+                "有效Trigger={}，末通道范围=[{}, {}]，缓存尾字节={}".format(
                     self.chunk_count,
                     len(samples),
                     len(samples[0]),
                     self.sample_count,
-                    trigger_text,
+                    valid_triggers if valid_triggers else "无",
+                    int(np.min(trigger_channel)),
+                    int(np.max(trigger_channel)),
+                    len(self._byte_buffer),
                 ),
             )
             self.last_report_time = current_time
@@ -121,6 +150,82 @@ class LoggingMarker(Marker):
                 ),
             )
         return epoch_ready
+
+
+class UnifiedOnlineMarker:
+    """自动兼容目标标签触发与240/241起止触发。
+
+    - 收到1-20时，沿用MetaBCI Marker按 ``interval`` 延迟截取；
+    - 收到240时开始缓存，收到241时停止，并从完整试次中截取同一 ``interval``。
+
+    无论使用哪种协议，提交给FBSCCA Worker的都是相同长度的Epoch。
+    """
+
+    def __init__(self, interval, srate, events):
+        self.interval = [int(round(float(value) * float(srate))) for value in interval]
+        self.label_marker = LoggingMarker(
+            interval=interval,
+            srate=srate,
+            events=list(events),
+        )
+        self.clear()
+
+    def clear(self):
+        self.label_marker.clear()
+        self.label_marker.countdowns.clear()
+        self.label_marker.is_rising = True
+        self.start_stop_buffer = []
+        self.start_stop_active = False
+        self.start_armed = True
+        self.start_stop_ready = False
+        self.ready_epoch = None
+
+    def append(self, sample):
+        self.label_marker.append(sample)
+        event = int(round(sample[-1]))
+        is_new_start = event == START_TRIGGER and self.start_armed
+
+        if is_new_start:
+            self.start_stop_buffer = [sample]
+            self.start_stop_active = True
+            self.start_armed = False
+            self.start_stop_ready = False
+            trace("事件", "检测到Trigger=240，开始缓存本轮数据")
+            return
+
+        if event != START_TRIGGER:
+            self.start_armed = True
+        if not self.start_stop_active:
+            return
+
+        self.start_stop_buffer.append(sample)
+        if event == STOP_TRIGGER:
+            self.start_stop_active = False
+            start_sample, stop_sample = self.interval
+            trial = np.asarray(self.start_stop_buffer, dtype=float)
+            self.ready_epoch = trial[start_sample:stop_sample]
+            self.start_stop_ready = True
+            trace(
+                "分段",
+                "检测到Trigger=241：完整试次{}点，截取区间{}后得到{}点".format(
+                    len(trial), self.interval, len(self.ready_epoch)
+                ),
+            )
+
+    def __call__(self, event):
+        # 始终推进原标签Marker状态，确保两种协议可在同一进程中切换。
+        label_ready = self.label_marker(event)
+        if self.start_stop_ready:
+            self.start_stop_ready = False
+            return True
+        if label_ready:
+            self.ready_epoch = self.label_marker.get_epoch()
+            trace("分段", "按1-20标签触发生成固定时间窗Epoch")
+            return True
+        return False
+
+    def get_epoch(self):
+        return self.ready_epoch
 
 
 class FBSCCADecoder:
@@ -406,6 +511,18 @@ def run_online(args: argparse.Namespace) -> None:
             "eeg channel indices must be smaller than num_channels - 1"
         )
 
+    selected_channel_names = [
+        name
+        for index, name in zip(OCCIPITAL_CHANNEL_INDICES, OCCIPITAL_CHANNEL_NAMES)
+        if index in eeg_channels
+    ]
+    trace(
+        "配置",
+        "FBSCCA判决通道索引={}，枕区导联={}".format(
+            eeg_channels, selected_channel_names or "按自定义索引"
+        ),
+    )
+
     trace(
         "配置",
         "刺激配置={!s}，目标数={}，设备地址={}:{}，采样率={}Hz，"
@@ -433,7 +550,7 @@ def run_online(args: argparse.Namespace) -> None:
         harmonics=int(args.harmonics),
         name=worker_name,
     )
-    marker = LoggingMarker(
+    marker = UnifiedOnlineMarker(
         interval=epoch_interval,
         srate=float(args.sample_rate),
         events=list(range(1, n_elements + 1)),
@@ -442,6 +559,7 @@ def run_online(args: argparse.Namespace) -> None:
         device_address=(args.host, int(args.port)),
         srate=float(args.sample_rate),
         num_chans=int(args.num_channels),
+        valid_events=tuple(range(1, n_elements + 1)) + (START_TRIGGER, STOP_TRIGGER),
     )
 
     connected = False
@@ -500,8 +618,8 @@ def make_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--eeg-channels",
-        default=",".join(str(index) for index in range(64)),
-        help="Comma-separated EEG channel indices, excluding trigger channel.",
+        default=",".join(str(index) for index in OCCIPITAL_CHANNEL_INDICES),
+        help="参与判决的通道索引，默认使用指定的8个枕区导联。",
     )
     parser.add_argument("--epoch-start", type=float, default=0.14)
     parser.add_argument(
