@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""博睿康 + DS-MSV-FBCCA 动态停止在线SSVEP示例。"""
+"""博睿康 + DS-MSV-FBCCA动态停止在线示例，使用240/241和枕区8导。"""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ import traceback
 from multiprocessing import Event
 from pathlib import Path
 from time import perf_counter
-from typing import Iterable, List, Optional, Sequence
+from typing import List, Sequence
 
 import numpy as np
 from pylsl import StreamInfo, StreamOutlet
@@ -37,6 +37,10 @@ from ds_msv_fbcca import (  # noqa: E402
 from metabci.brainflow.workers import ProcessWorker  # noqa: E402
 from online_ssvep_neuracle_fbscca import (  # noqa: E402
     LoggingNeuracle,
+    OCCIPITAL_CHANNEL_INDICES,
+    OCCIPITAL_CHANNEL_NAMES,
+    START_TRIGGER,
+    STOP_TRIGGER,
     parse_int_list,
     trace,
     wait_for_worker_startup,
@@ -66,15 +70,17 @@ def generate_references(
 
 
 class ProgressiveDecisionMarker:
-    """检测Trigger，并在各动态停止时间窗输出累积Epoch。"""
+    """以240开始、241结束，并在各动态停止时间窗输出累积Epoch。"""
 
     def __init__(
         self,
         decision_windows: Sequence[float],
         srate: float,
-        events: Iterable[int],
+        start_trigger: int = START_TRIGGER,
+        stop_trigger: int = STOP_TRIGGER,
     ) -> None:
-        self.events = {int(event) for event in events}
+        self.start_trigger = int(start_trigger)
+        self.stop_trigger = int(stop_trigger)
         self.window_samples = [
             int(round(float(window) * float(srate))) for window in decision_windows
         ]
@@ -94,20 +100,28 @@ class ProgressiveDecisionMarker:
 
     def append(self, sample) -> None:
         event = int(round(sample[-1]))
-        if event in self.events and self.armed:
+        if event == self.start_trigger and self.armed:
             self.buffer = [sample]
             self.ready_epoch = None
             self.next_window_index = 0
             self.active = True
             self.armed = False
             self.current_event = event
-            trace("事件", "检测到Trigger={}，开始累积动态时间窗".format(event))
+            trace("事件", "检测到Trigger=240，开始累积动态停止时间窗")
             return
 
-        if event not in self.events:
+        if event != self.start_trigger:
             self.armed = True
         if self.active:
             self.buffer.append(sample)
+            if event == self.stop_trigger:
+                self.active = False
+                trace(
+                    "事件",
+                    "检测到Trigger=241，本轮停止，共缓存{}个采样点".format(
+                        len(self.buffer)
+                    ),
+                )
 
     def __call__(self, event: int) -> bool:
         if not self.active or self.next_window_index >= len(self.window_samples):
@@ -124,8 +138,6 @@ class ProgressiveDecisionMarker:
             ),
         )
         self.next_window_index += 1
-        if self.next_window_index >= len(self.window_samples):
-            self.active = False
         return True
 
     def get_epoch(self):
@@ -366,6 +378,17 @@ def run_online(args: argparse.Namespace) -> None:
         raise ValueError("至少需要一个脑电通道")
     if max(eeg_channels) >= int(args.num_channels) - 1:
         raise ValueError("最后一个博睿康通道保留给Trigger，不能作为脑电通道")
+    selected_names = [
+        name
+        for index, name in zip(OCCIPITAL_CHANNEL_INDICES, OCCIPITAL_CHANNEL_NAMES)
+        if index in eeg_channels
+    ]
+    trace(
+        "配置",
+        "DS-MSV-FBCCA使用枕区8导：索引={}，导联={}".format(
+            eeg_channels, selected_names or "按自定义索引"
+        ),
+    )
 
     frequencies, phases = build_frequencies_and_phases(n_elements)
     # BaseAmplifier.up_worker当前固定使用feedback_worker键，保持该名称以兼容框架。
@@ -388,12 +411,14 @@ def run_online(args: argparse.Namespace) -> None:
     marker = ProgressiveDecisionMarker(
         decision_windows=DEFAULT_DECISION_WINDOWS,
         srate=args.sample_rate,
-        events=range(1, n_elements + 1),
+        start_trigger=START_TRIGGER,
+        stop_trigger=STOP_TRIGGER,
     )
     amplifier = LoggingNeuracle(
         device_address=(args.host, args.port),
         srate=args.sample_rate,
         num_chans=args.num_channels,
+        valid_events=(START_TRIGGER, STOP_TRIGGER),
     )
 
     connected = False
@@ -410,7 +435,7 @@ def run_online(args: argparse.Namespace) -> None:
         wait_for_worker_startup(worker, timeout=args.worker_startup_timeout)
         amplifier.start_trans()
         streaming = True
-        trace("数据", "数据流已启动，等待Trigger和渐进时间窗")
+        trace("数据", "数据流已启动，等待Trigger=240/241和渐进时间窗")
         input("需要停止算法时，请在此终端按Enter。\n")
     finally:
         if streaming:
@@ -440,8 +465,8 @@ def make_parser() -> argparse.ArgumentParser:
     parser.add_argument("--num-channels", type=int, default=65)
     parser.add_argument(
         "--eeg-channels",
-        default=",".join(str(index) for index in range(8)),
-        help="原算法默认使用前8个脑电通道；最后一个设备通道保留给Trigger。",
+        default=",".join(str(index) for index in OCCIPITAL_CHANNEL_INDICES),
+        help="默认使用指定的8个枕区导联；最后一个设备通道保留给Trigger。",
     )
     parser.add_argument("--epoch-offset", type=float, default=0.14)
     parser.add_argument("--resample-rate", type=float, default=250.0)
